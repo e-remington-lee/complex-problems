@@ -1,3 +1,20 @@
+# Hi, here's your problem today. This problem was recently asked by LinkedIn:
+
+# You are given a positive integer N which represents the number of steps in a staircase. You can either climb 1 or 2 steps at a time. Write a function that returns the number of unique ways to climb the stairs.
+
+# def staircase(n):
+#   # Fill this in.
+  
+# print staircase(4)
+# # 5
+# print staircase(5)
+# # 8
+
+# Can you find a solution in O(n) time?
+
+#TODO
+# Fid sequence is 2^n, know how to write it, explain it
+# When you find yourself using the fib sequence, there is usually a more efficient method out there such as working from the bottom up
 class Solution:
     # 1, 1, 2, 3, 5, 8, 13, 21
     def answer(self, steps):
@@ -32,27 +49,18 @@ class Solution:
             response = last+second_last
             second_last=last
             last=response           
-
             # 1; r=1 -- l=1, sl=1
             # 2; r=2 -- sl=l=1, l=r=2
             # 3; r=3, sl=l=2, l=r=3
             # 4; r=5
-
         return response
-
-from time import time  
+ 
 
 def main():
-    steps = 5
-    t0 = time()
+    steps = 6
     response = Solution().answer(steps)
-    t1 = time()
     resp2 = Solution().not_fib(steps)
-    t2 = time()
-    # response = Solution().fib(steps)
     print(response)
-    print(t1)
     print(resp2)
-    print(t2)
 
 main()
