@@ -22,8 +22,8 @@ class Solution:
 def main():
     li = [3,4,5,13,10]
     ans = Solution().answer(li)
-    ans2 = Solution().answer2(li)
     print(ans)
-    print(ans2)
 
-main()
+print(__name__)
+if __name__ == "__main__":
+    main()
