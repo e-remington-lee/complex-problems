@@ -17,7 +17,7 @@
 # When you find yourself using the fib sequence, there is usually a more efficient method out there such as working from the bottom up
 class Solution:
     # 1, 1, 2, 3, 5, 8, 13, 21
-    def answer(self, steps):
+    def answer(self, steps: int):
         return self.fib(steps)
     
     # TODO reverse engineer this to a better degree
