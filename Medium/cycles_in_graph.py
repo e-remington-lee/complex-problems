@@ -33,13 +33,16 @@
 class Solution:
     def dfs_solution(self, graph: dict) -> bool:
         vertexes = set()
+        parents = dict()
         for vertex in graph.keys():
             if vertex not in vertexes:
-                answer = self.dfs_2(vertex, vertexes, vertex, graph)
-        return answer
+                parents[vertex] = None
+                # Fails to not find graph when looking at C -> A after first pass from A-B-D-E
+                if self.dfs_2(vertex, vertexes, parents, graph):
+                    return True
+        return False
 
-    def dfs_2(self, vertex: str, vertexes: set, parent: str, graph: dict)->bool:
-        vertexes.add(vertex)
+    def dfs_2(self, vertex: str, vertexes: set, parents: dict, graph: dict)->bool:
         # 1, {a)
         # 2, {a, b}
         # 3, a, b, d
@@ -50,24 +53,16 @@ class Solution:
         # 2, a - retuns nothing
         # 3, d
         # d - a, b, e
-        for value in children:            
-            if value in vertexes and value != parent:
+        for value in children:
+            if vertex in vertexes and parents[vertex] != value:
                 return True
-            elif value not in vertexes:
-                return self.dfs_2(value, vertexes, vertex, graph)
-        # needs a check here or something
+            vertexes.add(vertex)
+            parents[value] = vertex
+            if vertex not in vertexes and self.dfs_2(value, vertexes, parents, graph):
+                return True
         return False
 
-
 def main():
-    directed_graph = {
-        "A": ["C", "B"],
-        "B": ["D"],
-        "C": [],
-        "D": ["A", "E"],
-        "E": []
-    }
-
     undirected_graph_true = {
         "A": ["B", "C"],
         "B": ["A", "D"],
@@ -83,6 +78,14 @@ def main():
             "D": ["E"],
             "E": ["D"]
         }
+
+    directed_graph = {
+        "A": ["C", "B"],
+        "B": ["D"],
+        "C": [],
+        "D": ["A", "E"],
+        "E": []
+    }
     # ans = Solution().dfs_solution(undirected_graph_true)
     # print(ans)
     ans2 = Solution().dfs_solution(undirected_graph_false)
