@@ -16,8 +16,12 @@
 
 
 #TODO
-#Take aways
+#Take aways, evaluate each node individually, you can use multiple expressions in an if statement to handle recussion across multiple nodes
+#Make sure when you have problems like this that each iteration has a reference to boundaries, we know that if we start off with 5, the left
+# nodes have to be less than 5 for the rest of the solution, so that has to be accounted for
+import sys
 
+print(-sys.maxsize-100)
 class Node:
     def __init__(self, value, left_node=None, right_node=None):
         self.value = value
