@@ -28,12 +28,15 @@ class LinkedList:
             return "Not instantiated"
         
 
+## Given a 2d array with colors, find the largest continuous path of a single color and return the length of that path
+## 
 class Solution:
     def answer(self, grid):
         max_count = 0
         for y in range(len(grid)):
             for x in range(len(grid[y])):
-                count = self.__traverse(x, y, grid, {})
+                # count = self.__traverse(x, y, grid, {})
+                count = self.__traverse_iterative(x, y, grid, {})
                 max_count = max(max_count, count)
         return max_count
 
@@ -55,10 +58,26 @@ class Solution:
         return _sum
 
 
-    # def __traverse_iterative(self, x, y, grid, seen):
-    #     key = f"{x},
+    def __traverse_iterative(self, x, y, grid, seen):
+        stack = []
+        color = grid[y][x]
+        stack.append([x,y])
+        key = (x,y)
+        seen[key] = True
+        _sum = 1
+        while len(stack)>0:
+            cords = stack.pop()
+            neighbors = self.__get_neighbors(cords[0], cords[1], grid, seen)
+            for point in neighbors:
+                xx = point[0]
+                yy = point[1]
+                if grid[yy][xx] == color:
+                    stack.append([xx,yy])
+                    _sum+=1
+                seen[(xx,yy)]=True
+        return _sum
+        
 
-    
     def __get_neighbors(self, x, y, grid, seen):
         cords = []
         neighbors = [
@@ -84,8 +103,8 @@ class Solution:
 def main():
     grid = [
         ['r', 'g', 'b'],
-        ['r', 'r', 'r'],
-        ['g', 'r', 'r']
+        ['r', 'b', 'r'],
+        ['g', 'b', 'r']
         ]
 
     sol = Solution()
