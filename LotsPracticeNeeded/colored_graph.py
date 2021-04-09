@@ -1,0 +1,94 @@
+class Node:
+    def __init__(self, value, node=None):
+        self.value = value
+        self.next = node
+   
+class LinkedList:
+    def __init__(self, node=None):
+        self.head = node
+        self.tail = None
+    
+    def add_node(self, node):
+        if self.head == None:
+            self.head = node
+        elif self.head != None and self.tail == None:
+            self.tail = self.head
+        self.head.next = node
+        self.head = node
+        
+    def _traverse_helper(self, node):
+        if node is not None:
+            print(node.value)
+            self._traverse_helper(node.next)
+    
+    def traverse(self):
+        if self.tail is not None:
+            self._traverse_helper(self.tail)
+        else:
+            return "Not instantiated"
+        
+
+class Solution:
+    def answer(self, grid):
+        max_count = 0
+        for y in range(len(grid)):
+            for x in range(len(grid[y])):
+                count = self.__traverse(x, y, grid, {})
+                max_count = max(max_count, count)
+        return max_count
+
+
+    def __traverse(self, x, y, grid, seen):
+        key = (x,y)
+        if seen.get(key) != None:
+            return 0
+        seen[key] = True
+        neighbors = self.__get_neighbors(x, y, grid, seen)
+        _sum = 1
+        for point in neighbors:
+            xx = point[0]
+            yy = point[1]
+            if grid[yy][xx] == grid[y][x]:
+                _sum += self.__traverse(xx, yy, grid, seen)
+            else:
+                continue
+        return _sum
+
+
+    # def __traverse_iterative(self, x, y, grid, seen):
+    #     key = f"{x},
+
+    
+    def __get_neighbors(self, x, y, grid, seen):
+        cords = []
+        neighbors = [
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 0]
+        ]
+
+        for n in neighbors:
+            cordX = x + n[0]
+            cordY = y + n[1]
+            if cordX >= 0 and cordY >= 0 and cordX < len(grid[0]) and cordY < len(grid):
+                if seen.get((cordX, cordY)) == None:
+                    cords.append([cordX, cordY])
+                else:
+                    continue
+            else:
+                continue
+        return cords
+
+
+def main():
+    grid = [
+        ['r', 'g', 'b'],
+        ['r', 'r', 'r'],
+        ['g', 'r', 'r']
+        ]
+
+    sol = Solution()
+    print(sol.answer(grid))
+
+main()

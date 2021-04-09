@@ -2,7 +2,7 @@ class Fib:
     def recurrsive_fib1(self, n):
         if n <=1:
             return 1
-        return self.fib1(n-1) + self.fib1(n-2)
+        return self.recurrsive_fib1(n-1) + self.recurrsive_fib1(n-2)
 
     def iterative_fib(self, n):
         if n==0:
@@ -21,4 +21,10 @@ class Fib:
         
         return response
     
-print(Fib().iterative_fib(8))
+# print(Fib().iterative_fib(4))
+# print(Fib().recurrsive_fib1(4))
+keys = {"a":23}
+print(keys.get("a"))
+print(keys["a"])
+keys.update({"b":10})
+print(keys)
