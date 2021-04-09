@@ -62,19 +62,25 @@ class Solution:
         stack = []
         color = grid[y][x]
         stack.append([x,y])
-        key = (x,y)
-        seen[key] = True
-        _sum = 1
+        _sum = 0
         while len(stack)>0:
             cords = stack.pop()
+            itemX = cords[0]
+            itemY = cords[1]
+            key = (itemX, itemY)
+            if seen.get(key) != None or grid[itemY][itemX] != color:
+                continue
+            # if grid[itemY][itemX] != color:
+            #     continue
             neighbors = self.__get_neighbors(cords[0], cords[1], grid, seen)
+            seen[key] = True
+            _sum+=1
             for point in neighbors:
                 xx = point[0]
                 yy = point[1]
                 if grid[yy][xx] == color:
                     stack.append([xx,yy])
-                    _sum+=1
-                seen[(xx,yy)]=True
+                # seen[(xx,yy)]=True
         return _sum
         
 
@@ -86,25 +92,35 @@ class Solution:
             [-1, 0],
             [1, 0]
         ]
-
         for n in neighbors:
             cordX = x + n[0]
             cordY = y + n[1]
-            if cordX >= 0 and cordY >= 0 and cordX < len(grid[0]) and cordY < len(grid):
-                if seen.get((cordX, cordY)) == None:
-                    cords.append([cordX, cordY])
-                else:
-                    continue
-            else:
+            if cordX < 0 or cordY < 0 or cordX >= len(grid[0]) or cordY >= len(grid) or seen.get((cordX, cordY)) != None:
                 continue
+            cords.append([cordX, cordY])
+
+            
+            # if cordX >= 0 and cordY >= 0 and cordX < len(grid[0]) and cordY < len(grid):
+            #     continue
+            # else:
+            #     cords.append([cordX, cordY])
+
+
+            # if cordX >= 0 and cordY >= 0 and cordX < len(grid[0]) and cordY < len(grid):
+            #     if seen.get((cordX, cordY)) == None:
+            #         cords.append([cordX, cordY])
+            #     else:
+            #         continue
+            # else:
+            #     continue
         return cords
 
 
 def main():
     grid = [
         ['r', 'g', 'b'],
-        ['r', 'b', 'r'],
-        ['g', 'b', 'r']
+        ['r', 'r', 'r'],
+        ['g', 'r', 'r']
         ]
 
     sol = Solution()
