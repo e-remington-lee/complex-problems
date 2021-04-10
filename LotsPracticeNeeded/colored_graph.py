@@ -99,13 +99,6 @@ class Solution:
                 continue
             cords.append([cordX, cordY])
 
-            
-            # if cordX >= 0 and cordY >= 0 and cordX < len(grid[0]) and cordY < len(grid):
-            #     continue
-            # else:
-            #     cords.append([cordX, cordY])
-
-
             # if cordX >= 0 and cordY >= 0 and cordX < len(grid[0]) and cordY < len(grid):
             #     if seen.get((cordX, cordY)) == None:
             #         cords.append([cordX, cordY])
