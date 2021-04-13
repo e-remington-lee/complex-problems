@@ -46,9 +46,7 @@ class Solution:
         #     c  
         if word_len > len(search)-y:
             return False
-        found = [search[y][x] for y in range(y, y+len(word))]
-        found_word = "".join(found)
-        return found_word == word
+        return "".join([search[y][x] for y in range(y, y+word_len)]) == word
 
     def find_words_side(self, x, y, search, word):
         word_len = len(word)
@@ -56,9 +54,7 @@ class Solution:
         #     c  
         if word_len > len(search[0])-x:
             return False
-        found = [search[y][x] for x in range(x, x+len(word))]
-        found_word = "".join(found)
-        return found_word == word
+        return "".join([search[y][x] for x in range(x, x+word_len)]) == word
         
                     
                     
@@ -68,9 +64,12 @@ def main():
         ['F', 'A', 'C', 'I'],
         ['O', 'B', 'Q', 'P'],
         ['A', 'N', 'O', 'B'],
-        ['M', 'A', 'S', 'S']]
+        ['M', 'X', 'S', 'S']]
 
     print(Solution().answer_brute(search, "FACU"))
     print(Solution().answer1(search, "OCQOS"))
 
 main()
+
+
+# notes The time complexity of this solution is O(N x M x k) where k is the length of the target word. This is because in the worst case, we are iterating through the entire 2D array which is N*M, and then constructing and checking for a match with the target word of length k.
