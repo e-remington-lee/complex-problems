@@ -37,7 +37,6 @@ class LinkedList:
             current = current.next
         previous.next = node
         node.next = current
-        print(self.head.value)
 
 
     def delete(self, index):
@@ -128,6 +127,7 @@ ll = LinkedList(n)
 print(ll.test())
 print(ll)
 ll.insert(Node(6), 8)
+print("Doesn't work with odd length of ll, infinite loop if so")
 print(ll)
 ll.odd_even()
 print(ll)
