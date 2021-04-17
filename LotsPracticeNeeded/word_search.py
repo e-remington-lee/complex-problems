@@ -71,5 +71,9 @@ def main():
 
 main()
 
-
+## Alternate solution, using zip and list comprehensions. The zip cycles through iteratbles and returns each corresponding index
+matrix = [['a', 'b', 'c', 'd', 'e']]
+word2= "abcd"
+for c1, c2 in zip(word2, (matrix[0][x] for x in range(0, len(word2)))):
+    print(c1, c2)
 # notes The time complexity of this solution is O(N x M x k) where k is the length of the target word. This is because in the worst case, we are iterating through the entire 2D array which is N*M, and then constructing and checking for a match with the target word of length k.

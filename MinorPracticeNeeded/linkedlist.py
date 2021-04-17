@@ -1,26 +1,41 @@
 class Node:
-    def __init__(self, value, next=None):
+    def __init__(self, value, next=None, prev=None):
         self.value = value
         self.next = next
+        self.prev = prev
 
 class LinkedList:
     def __init__(self, head=None):
         super().__init__()
         self.head = head
-
-
-    def test(self):
-        current = self.head
-        current = 5
-        print(self.head)
-
     
-    def add_node(self, node):
+    def add_node_head(self, node):
         if self.head is not None:
-            self.head.next = node
+            self.head.prev = node
+            node.next = self.head
             self.head = node
         else: 
+            self.head = node    
+
+    def get_node(self, index):
+        current = self.head
+        while index>0:
+            if current is None:
+                return -1
+            current = current.next
+            index -= 1
+        return current
+
+
+    def add_node_tail(self, node):
+        current = self.head
+        if current is None:
             self.head = node
+
+        while current.next:
+            current = current.next
+        
+        current.next = node
 
 
     def insert(self, node, index):
@@ -51,64 +66,77 @@ class LinkedList:
             current = current.next
         previous.next = current.next
 
-    def odd_even(self):
-        index = 1
-        odd_head = None
-        odd_tail = None
-        even_head = None
-        even_tail = None
+
+    def oddEven(self):
+        odds = None
+        evens = None
+        evensHead = None
+        isOdd = True
         current = self.head
         while current is not None:
-            if index % 2 == 1:
-                if odd_head is not None:
-                    odd_head.next = current
-                    odd_head = current
+            if isOdd:
+                if odds is not None:
+                    odds.next = current
+                    odds = current
                 else:
-                    odd_head = current
-
-                if odd_tail is None:
-                    odd_tail = current
-                elif odd_tail.next is None:
-                    odd_head.next = current
+                    odds = current
             else:
-                if even_head is not None:
-                    even_head.next = current
-                    even_head = current
+                if evens is not None:
+                    evens.next = current
+                    evens = current
                 else:
-                    even_head = current
-
-                if even_tail is None:
-                    even_tail = current
-                elif even_tail.next is None:
-                    even_head.next = current
-            index +=1
+                    evens = current
+                    evensHead = evens
             current = current.next
-        odd_head.next = even_tail
-        while odd_tail is not None:
-            print(odd_tail.value)
-            odd_tail = odd_tail.next
+            isOdd = not isOdd
+        evens.next = None
+        odds.next = evensHead
+
+
+    def palindrome(self):
+        current = mid = temp_head = self.head
+        while current and current.next:
+            current = current.next.next
+            mid = mid.next
+        node = None
+        while mid:
+            nxt = mid.next
+            mid.next = node
+            node = mid
+            mid = nxt
+        mid = node
+        while mid:
+            if mid.value != temp_head.value:
+                return False
+            mid = mid.next
+            temp_head = temp_head.next
+        return True       
         
 
     def reverse_iterative(self):
         current = self.head
-        response = ""
-        li = []
-        while current is not None:
-            li.insert(0, str(current.value))
-            current = current.next
-        return response.join(li)
-
+        node = None
+        while current:
+            nxt = current.next
+            current.next = node
+            node = current
+            current = nxt
+        self.head = node
+        
 
     def reverse_recursive(self):
-        return self.__recursive_helper(self.head, [])
+        return self.__recursive_helper(self.head, None)
 
 
-    def __recursive_helper(self, node, li):
-        if node is not None:
-            li.insert(0, str(node.value))
-            return self.__recursive_helper(node.next, li)
+    def __recursive_helper(self, node, prev):
+        if node:
+            nxt = node.next
+            node.next = prev
+            prev = node
+            return self.__recursive_helper(nxt, prev)
         else:
-            return "".join(li)
+            self.head=prev
+            return
 
 
     def __str__(self):
@@ -117,24 +145,29 @@ class LinkedList:
         li = []
         while current is not None:
             li.append(str(current.value))
+            # li.append("->")
             current = current.next
         return response.join(li)
 
 
-# n = Node(5, Node(4, Node(3)))
 n = Node(1, Node(2, Node(3, Node(4, Node(5)))))
 ll = LinkedList(n)
-print(ll.test())
+
+ll.insert(Node(6), 6)
+ll.add_node_tail(Node(9))
+ll.add_node_head(Node(8))
+# print(ll.get_node(4).value)
 print(ll)
-ll.insert(Node(6), 8)
-print("Doesn't work with odd length of ll, infinite loop if so")
+ll.reverse_iterative()
 print(ll)
-ll.odd_even()
+ll.reverse_recursive()
 print(ll)
-ll.delete(1)
-print(ll)
+# ll.oddEven()
+# print(ll)
+# ll.delete(1)
+# print(ll)
 
-
-
-
-
+n1 = Node(1, Node(2, Node(2, Node(2, Node(2, Node(1))))))
+ll2 = LinkedList(n1)
+print(ll2)
+print(ll2.palindrome())
