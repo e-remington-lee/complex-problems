@@ -171,3 +171,6 @@ n1 = Node(1, Node(2, Node(2, Node(2, Node(2, Node(1))))))
 ll2 = LinkedList(n1)
 print(ll2)
 print(ll2.palindrome())
+
+aa = "abcd"
+print(aa[::-1])
