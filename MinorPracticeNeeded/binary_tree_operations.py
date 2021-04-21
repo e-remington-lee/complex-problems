@@ -86,14 +86,56 @@ class Node(object):
     def tree_level_order_iterative(self, node):
         pass
 
-        
+    # can be improved slightly
+    def max_depth(self, node):
+        if not node:
+            return 0
+        count = 1
+        return self.__md(node, count)
 
+    def __md(self, node, count):
+        cr = cl = 0
+        if node.left:
+            cl = count+1
+            cl = self.__md(node.left, cl)
+        if node.right:
+            cr = count +1
+            cr = self.__md(node.right, cr)
+        return max(cr, cl, count)
+
+    def get_node_depth(self, node, value):
+        return self.__depth_helper(node, value, 1)
+
+    def __depth_helper(self, node, value, depth):
+        if not node:
+            return -1
+        if node.value==value:
+            return depth
+        depth+=1
+        dl = self.__depth_helper(node.left, value, depth)
+        dr = self.__depth_helper(node.right, value, depth)
+        return max(dl, dr)
+
+    # perfect binary tree means all leaf nodes are the same depth and all nodes have 2 children
+    # log(n) time
+    def get_perfect_binary_tree_depth(self, node):
+        pass
+        
+    
+
+
+        
 
 b = Node("b", left=Node("d"), right=Node("e"))
 c = Node("c", left=Node("f"), right=Node("g"))
 root = Node("a", left=b, right=c)
-# a = Node(2, left=Node(3))
-# root = Node(1, right=a)
+
+print(root.get_node_depth(root, "g"))
+b2 = Node("c", left=Node("f"), right=Node("g"))
+c2 = Node("c", left=Node("f"), right=Node("g"))
+root2 = Node("a", left=b, right=c)
+a3 = Node(2)
+root3 = Node(1, right=a3)
 # root.pre_order(root)
 # root.pre_order_iterative(root)
 # root.in_order(root)
@@ -101,4 +143,5 @@ root = Node("a", left=b, right=c)
 # root.post_order(root)
 # root.post_order_iterative(root)
 print(root.tree_level_order(root))
+print(root.max_depth(root3))
 
