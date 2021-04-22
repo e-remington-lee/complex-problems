@@ -106,6 +106,8 @@ class Node(object):
     def get_node_depth(self, node, value):
         return self.__depth_helper(node, value, 1)
 
+    # does not work if there are multiple nodes of the same value that both get found, which one do we pick?
+    # this one would choose the furthest one, but not a good way to reverse it
     def __depth_helper(self, node, value, depth):
         if not node:
             return -1
@@ -119,9 +121,33 @@ class Node(object):
     # perfect binary tree means all leaf nodes are the same depth and all nodes have 2 children
     # log(n) time
     def get_perfect_binary_tree_depth(self, node):
-        pass
+        if not node:
+            return 0
+        return self.__hpbtd(node, 1)
+
+    def __hpbtd(self, node, depth):
+        if node.left:
+            return self.__hpbtd(node.left, depth+1)
+        else:
+            return depth
+
         
+    def palindrome(self, node):
+        if not node:
+            return False
+        return self.__palindrome_helper(node.left, node.right)
     
+    #TODO add some boiler plate error checking for NoneType.value
+    def __palindrome_helper(self, left, right):
+        if left is None and right is None:
+            return True
+        if left.value != right.value:
+            return False
+        if self.__palindrome_helper(left.left, right.right) and self.__palindrome_helper(left.right, right.left):
+            return True
+        else:
+            return False
+        
 
 
         
@@ -130,10 +156,10 @@ b = Node("b", left=Node("d"), right=Node("e"))
 c = Node("c", left=Node("f"), right=Node("g"))
 root = Node("a", left=b, right=c)
 
-print(root.get_node_depth(root, "g"))
-b2 = Node("c", left=Node("f"), right=Node("g"))
+b2 = Node("c", left=Node("g"), right=Node("f"))
 c2 = Node("c", left=Node("f"), right=Node("g"))
-root2 = Node("a", left=b, right=c)
+root2 = Node("a", left=b2, right=c2)
+print(root2.palindrome(root2))
 a3 = Node(2)
 root3 = Node(1, right=a3)
 # root.pre_order(root)
@@ -142,6 +168,6 @@ root3 = Node(1, right=a3)
 # root.in_order_iterative(root)
 # root.post_order(root)
 # root.post_order_iterative(root)
-print(root.tree_level_order(root))
+print(root.tree_level_order(root2))
 print(root.max_depth(root3))
 
