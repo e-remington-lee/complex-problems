@@ -137,7 +137,7 @@ class Node(object):
             return False
         return self.__palindrome_helper(node.left, node.right)
     
-    #TODO add some boiler plate error checking for NoneType.value
+    #TODO add some boiler plate error checking for NoneType.value if not perfectly balanced
     def __palindrome_helper(self, left, right):
         if left is None and right is None:
             return True
@@ -147,6 +147,29 @@ class Node(object):
             return True
         else:
             return False
+
+
+    def palindrome_iterative(self, node):
+        if not node:
+            return False
+        if node.right is None and node.left is None:
+            return True
+        stack_left = []
+        stack_right = []
+        stack_left.append(node.left)
+        stack_right.append(node.right)
+        while stack_left and stack_right and len(stack_left)==len(stack_right):
+            left = stack_left.pop()
+            right = stack_right.pop()
+            if left.value == right.value:
+                if left.left: stack_left.append(left.left)
+                if left.right: stack_left.append(left.right)
+                if right.right: stack_right.append(right.right)
+                if right.left: stack_right.append(right.left)
+            else:
+                return False
+        return True
+        
         
 
 
@@ -160,6 +183,7 @@ b2 = Node("c", left=Node("g"), right=Node("f"))
 c2 = Node("c", left=Node("f"), right=Node("g"))
 root2 = Node("a", left=b2, right=c2)
 print(root2.palindrome(root2))
+print(root2.palindrome_iterative(root2))
 a3 = Node(2)
 root3 = Node(1, right=a3)
 # root.pre_order(root)
