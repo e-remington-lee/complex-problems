@@ -1,3 +1,4 @@
+# graph (child connect to parents, ect) -> tree (parents can have many nodes, no order) -> binary search tree (each parent node's left is less and right is greater than it)
 class Node(object):
     def __init__(self, value, left=None, right=None):
         self.value = value
@@ -118,6 +119,17 @@ class Node(object):
         dr = self.__depth_helper(node.right, value, depth)
         return max(dl, dr)
 
+    #for a binary search tree
+    def search_node(self, node, value):
+        if not Node:
+            return None
+        if node.value==value:
+            return node
+        if value > node.value:
+            return self.search_node(node.right, value)
+        else:
+            return self.search_node(node.left, value)
+
     # perfect binary tree means all leaf nodes are the same depth and all nodes have 2 children
     # log(n) time
     def get_perfect_binary_tree_depth(self, node):
@@ -184,7 +196,7 @@ c2 = Node("c", left=Node("f"), right=Node("g"))
 root2 = Node("a", left=b2, right=c2)
 print(root2.palindrome(root2))
 print(root2.palindrome_iterative(root2))
-a3 = Node(2)
+a3 = Node(3, left=Node(2))
 root3 = Node(1, right=a3)
 # root.pre_order(root)
 # root.pre_order_iterative(root)
@@ -194,4 +206,5 @@ root3 = Node(1, right=a3)
 # root.post_order_iterative(root)
 print(root.tree_level_order(root2))
 print(root.max_depth(root3))
+print(root.search_node(root3, 3))
 
