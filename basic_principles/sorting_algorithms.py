@@ -37,6 +37,7 @@ class Sorting(object):
 
     #https://www.youtube.com/watch?v=4VqmGXwpLqc
     #https://www.geeksforgeeks.org/merge-sort/
+    # average, o(n*log(n))
     def merge_sort(self, arr):
         if len(arr)>1:
             mid = len(arr)//2
@@ -68,6 +69,7 @@ class Sorting(object):
     # https://www.geeksforgeeks.org/heap-sort/   
     # https://www.youtube.com/watch?v=2DmK_H7IdTo
     # https://www.youtube.com/watch?v=t0Cq6tVNRBA
+    # average, o(n*log(n))
     def heap_sort(self, arr):
         n = len(arr)
 

@@ -71,7 +71,13 @@ class TreeNode(object):
             root.left = self.delete(root.left, value)  
         return root     
         
+
+class KthLargest(object):
+    def findKthLargest(self, nums, k):
+        pass
         
+
+
 #Make sure to print them 
 def main():
     b2 = TreeNode(4, left=TreeNode(3), right=TreeNode(6))
@@ -90,6 +96,10 @@ def main():
     print("")
     root3 = root.delete(root, 5)
     post_order(root3)
+    print("")
+    li = [4,5,8,2]
+    k = KthLargest().findKthLargest(li, 4)
+    print(k)
 
     # nums = [1,2,3,4,5,6,7,8,9]
     # print(root.binary_search(nums, 5))
