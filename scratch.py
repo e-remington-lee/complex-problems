@@ -12,24 +12,34 @@ class ReverseString:
     def pythonic(self, s):
         return s[::-1]
 
-class Node:
-    def __init__(self, value, next=None):
-        self.value = value
-        self.next = next
 
-    def __str__(self):
-        curr = self
-        cl = Node.idk
-        response = ""
-        li = []
-        while curr:
-            li.append(str(curr.value))
-            curr = curr.next
-        return response.join(li)
+def quick_sort(arr):
+    return qs_helper(arr, 0, len(arr)-1)
 
-        
+def qs_helper(arr, low, high):
+    if low<high:
+        pi = partition_highlow(arr, low, high)
+        # pi = partition_lowhigh(arr, low, high)
+        qs_helper(arr, pi+1, high)
+        qs_helper(arr, 0, pi-1)
+    return arr
 
-n = Node(4, Node(3))
-print(n)
-print(ReverseString().classic("hello"))
-print(ReverseString().pythonic("hello"))
+def partition_lowhigh(arr, low, high):
+    for x in range(low, high):
+        if arr[x]<=arr[high]:
+            arr[low], arr[x] = arr[x], arr[low]
+            low+=1
+    arr[low], arr[high] = arr[high], arr[low]
+    return low
+
+def partition_highlow(arr, low, high):
+    for x in range(low, high):
+        if arr[x]>=arr[high]:
+            arr[low], arr[x] = arr[x], arr[low]
+            low+=1
+    arr[high], arr[low] = arr[low], arr[high]
+    return low
+
+
+print(quick_sort([5,3,1,6]))
+

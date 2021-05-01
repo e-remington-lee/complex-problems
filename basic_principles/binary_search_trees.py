@@ -71,10 +71,38 @@ class TreeNode(object):
             root.left = self.delete(root.left, value)  
         return root     
         
-
+# Consider doing with heap sort too
 class KthLargest(object):
-    def findKthLargest(self, nums, k):
-        pass
+    def __init__(self):
+        super().__init__()
+
+    def kth_largest(self, arr, k):
+        if k > len(arr):
+            return None
+        k = len(arr)-k
+        return self.quick_sort(arr, 0, len(arr)-1, k)
+
+    def quick_sort(self, arr, low, high, k):
+        if low < high:
+            pi = self.partition(arr, low, high)
+            if k>pi:
+                self.quick_sort(arr, pi+1, high, k)
+            elif k<pi:
+                self.quick_sort(arr, low, pi-1, k)
+            elif k==pi:
+                return arr[pi]
+        return arr[k]
+
+    def partition(self, arr, low, high):
+        for x in range(low, high):
+            if arr[x]<=arr[high]:
+                arr[low], arr[x] = arr[x], arr[low]
+                low+=1
+        arr[high], arr[low] = arr[low], arr[high]
+        return low
+        
+
+
         
 
 
@@ -98,8 +126,7 @@ def main():
     post_order(root3)
     print("")
     li = [4,5,8,2]
-    k = KthLargest().findKthLargest(li, 4)
-    print(k)
+    print(KthLargest().kth_largest([2,1,5,4,3], 1))
 
     # nums = [1,2,3,4,5,6,7,8,9]
     # print(root.binary_search(nums, 5))

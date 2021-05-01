@@ -97,6 +97,7 @@ class Sorting(object):
             arr[i], arr[largest] = arr[largest], arr[i]
             self.__heapify(arr, n, largest)
 
+    # figure out better way to calculate pivot
     # worst O(n*2) if you pick the worst pivot each time
     # average, o(n*log(n))
     # https://www.youtube.com/watch?v=Hoixgm4-P4M
@@ -126,7 +127,7 @@ print(sort.selection_sort(li))
 li = [2, 5, 6, 8, 1, 3]
 print(sort.insertion_sort(li))
 li = [2, 5, 3, 8, 1, 6]
-print(sort.quick_sort(li, 0,len(li)-1))
+print(sort.quick_sort(li, 0,len(li)-1)[len(li)-1-2+1])
 li = [2, 5, 6, 8, 1, 3]
 print(sort.merge_sort(li))
 li = [2, 5, 6, 8, 1, 3]
