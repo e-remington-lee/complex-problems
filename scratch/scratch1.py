@@ -42,4 +42,3 @@ def partition_highlow(arr, low, high):
 
 
 print(quick_sort([5,3,1,6]))
-

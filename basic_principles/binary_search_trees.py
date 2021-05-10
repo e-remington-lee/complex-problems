@@ -72,6 +72,7 @@ class TreeNode(object):
         return root     
         
 # Consider doing with heap sort too
+#worst n^2, average n logn,  space is in-place so??
 class KthLargest(object):
     def __init__(self):
         super().__init__()
@@ -103,15 +104,11 @@ class KthLargest(object):
         
 
 
-        
-
-
 #Make sure to print them 
 def main():
     b2 = TreeNode(4, left=TreeNode(3), right=TreeNode(6))
     c2 = TreeNode(10, left=TreeNode(9), right=TreeNode(11))
     root = TreeNode(7, left=b2, right=c2)
-
     node1=root.search_node_iterative(root, 10)
     print(node1.left.value, node1.value, node1.right.value)
     root2 = root.insert(root, 5)
@@ -126,6 +123,7 @@ def main():
     post_order(root3)
     print("")
     li = [4,5,8,2]
+    
     print(KthLargest().kth_largest([2,1,5,4,3], 1))
 
     # nums = [1,2,3,4,5,6,7,8,9]
