@@ -182,7 +182,8 @@ class Node(object):
                 return False
         return True
         
-        
+    def invert_binary_tree(self):
+        pass
 
 
         

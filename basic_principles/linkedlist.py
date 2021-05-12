@@ -185,6 +185,33 @@ class LinkedList:
             temp_head = temp_head.next
         return True       
         
+    def palindrome_recursive(self):
+        current=temp_head=mid=self.head
+        return self.__palindrome_helper(current,temp_head,mid, None, True, True)
+
+    def __palindrome_helper(self, current, temp_head, mid, r_next, gb1, gb2):
+        if current and current.next and gb1:
+            current = current.next.next
+            mid = mid.next
+            return self.__palindrome_helper(current, temp_head, mid, r_next, gb1, gb2)
+        gb1=False
+        if mid and gb2:
+            _next = mid.next
+            mid.next = r_next
+            # r_next = mid
+            # mid = _next
+            return self.__palindrome_helper(current, temp_head, _next, mid, gb1, gb2)
+        elif gb2 and not gb1:
+            mid = r_next
+            gb2 = False
+
+        if temp_head:
+            if temp_head.value != mid.value:
+                return False
+            temp_head=temp_head.next
+            mid=mid.next
+            return self.__palindrome_helper(current, temp_head, mid, r_next, gb1, gb2)
+        return True
 
     def reverse_iterative(self):
         current = self.head
