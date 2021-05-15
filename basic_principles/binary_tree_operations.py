@@ -5,30 +5,30 @@ class Node(object):
         self.left = left
         self.right = right
 
-    def pre_order(self, node):
+    def preorder(self, node):
         if node:
             print(node.value, end="")
-            self.pre_order(node.left)
-            self.pre_order(node.right)
+            self.preorder(node.left)
+            self.preorder(node.right)
 
-    def pre_order_iterative(self, node):
-        stack = []
+    def preorder_iterative(self, node):
+        stack=[]
         stack.append(node)
-        while len(stack):
-            current_node = stack.pop()
-            print(current_node.value, end="")
-            if current_node.right: stack.append(current_node.right) 
-            if current_node.left: stack.append(current_node.left)
- 
+        while stack:
+            current = stack.pop()
+            if current:
+                print(current.value)
+                stack.append(current.right)
+                stack.append(current.left)
 
-    def in_order(self, node):
+    def inorder(self, node):
         if node:
             self.in_order(node.left)
             print(node.value, end="")
             self.in_order(node.right)
 
 
-    def in_order_iterative(self, node):
+    def inorder_iterative(self, node):
         stack = []
         current = node
         while True:
@@ -43,13 +43,13 @@ class Node(object):
                 break
 
 
-    def post_order(self, node):
+    def postorder(self, node):
         if node:
             self.post_order(node.left)
             self.post_order(node.right)
             print(node.value, end="")
 
-    def post_order_iterative(self, node):
+    def postorder_iterative(self, node):
         if not Node:
             return
         s1 = []
@@ -65,6 +65,31 @@ class Node(object):
             node2 = s2.pop()
             print(node2.value, end="")
 
+    def peek(self, stack):
+        if len(stack)>0:
+            return stack[-1]
+    # hard
+    def postorder_hard(self, node):
+        if not node:
+            return
+        stack=[]
+        while True:
+            while node:
+                if node.right:
+                    stack.append(node.right)
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            if node.right and self.peek(stack)==node.right:
+                stack.pop()
+                stack.append(node)
+                node=node.right
+            else:
+                print(node.value)
+                node=None
+            
+            if not stack:
+                break
 
     def tree_level_order(self, node):
         response = []
@@ -72,7 +97,6 @@ class Node(object):
             return response
         return self.__trl(response, [node])
         
-
     def __trl(self, response, li):
         if not li:
             return response
@@ -83,26 +107,28 @@ class Node(object):
             if n.right: li2.append(n.right)
         return self.__trl(response, li2)
 
-
-    def tree_level_order_iterative(self, node):
-        pass
+    def tree_level(self, node):
+        stack = []
+        stack.append(node)
+        while stack:
+            node = stack.pop(0)
+            if node:
+                print(node.value)
+                stack.append(node.left)
+                stack.append(node.right)
 
     # can be improved slightly
     def max_depth(self, node):
+        return self.max_depth_helper(node, 0)
+      
+    # time, On, space worst cast On, amortized O(n/2) I think
+    def max_depth_helper(self, node, depth):
         if not node:
-            return 0
-        count = 1
-        return self.__md(node, count)
-
-    def __md(self, node, count):
-        cr = cl = 0
-        if node.left:
-            cl = count+1
-            cl = self.__md(node.left, cl)
-        if node.right:
-            cr = count +1
-            cr = self.__md(node.right, cr)
-        return max(cr, cl, count)
+            return depth
+        depth +=1
+        left = self.max_depth_helper(node.left, depth)
+        right = self.max_depth_helper(node.right, depth)
+        return max(left, right)
 
     def get_node_depth(self, node, value):
         return self.__depth_helper(node, value, 1)
@@ -119,7 +145,7 @@ class Node(object):
         dr = self.__depth_helper(node.right, value, depth)
         return max(dl, dr)
 
-    #for a binary search tree
+    # for a binary search tree
     def search_node(self, node, value):
         if not Node:
             return None
@@ -144,21 +170,21 @@ class Node(object):
             return depth
 
         
-    def palindrome(self, node):
+    # Time is On because we perform operations on all nodes in the tree; space is Oh where h is the height.
+    def symmetric_tree(self, node):
         if not node:
-            return False
-        return self.__palindrome_helper(node.left, node.right)
+            return True
+        return self.__symmetric_tree_helper(node.left, node.right)
     
-    #TODO add some boiler plate error checking for NoneType.value if not perfectly balanced
-    def __palindrome_helper(self, left, right):
-        if left is None and right is None:
+    #Needs boiler plate None error checking
+    def __symmetric_tree_helper(self, left, right):
+        if not left and not right:
             return True
-        if left.value != right.value:
+        elif left.value!=right.value:
             return False
-        if self.__palindrome_helper(left.left, right.right) and self.__palindrome_helper(left.right, right.left):
+        elif self.__symmetric_tree_helper(left.left, right.right) and self.__symmetric_tree_helper(left.right, right.left):
             return True
-        else:
-            return False
+        return False
 
 
     def palindrome_iterative(self, node):
@@ -186,8 +212,16 @@ class Node(object):
         pass
 
 
-        
-
+# [8, 6, 11, 3, 7, 9, 13]
+# root i=0; left = 2i+1; right=2i+2 
+#          8
+#        /   \
+#       6      11
+#      / \     / \
+#     3   7   9   13       
+# l1 = Node(6, left=Node(3), right=Node(7))
+# r1 = Node(11, left=Node(9), right=Node(13))
+# n1 = Node(8, left=l1, right=r1)
 b = Node("b", left=Node("d"), right=Node("e"))
 c = Node("c", left=Node("f"), right=Node("g"))
 root = Node("a", left=b, right=c)
@@ -199,8 +233,8 @@ print(root2.palindrome(root2))
 print(root2.palindrome_iterative(root2))
 a3 = Node(3, left=Node(2))
 root3 = Node(1, right=a3)
-# root.pre_order(root)
-# root.pre_order_iterative(root)
+# root.preorder(root)
+# root.preorder_iterative(root)
 # root.in_order(root)
 # root.in_order_iterative(root)
 # root.post_order(root)
