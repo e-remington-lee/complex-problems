@@ -1,5 +1,6 @@
 
 # Sorting is usually between the worst case (brute force) and the best case scenario
+# https://lamfo-unb.github.io/2019/04/21/Sorting-algorithms/#:~:text=%2B1%5D%20%3D%20temp-,Quicksort,greater%20numbers%20on%20the%20right.
 class Sorting(object):
     # O(n*2)
     # https://www.youtube.com/watch?v=xli_FI7CuzA
@@ -63,7 +64,6 @@ class Sorting(object):
                 arr[k]=right[j]
                 j+=1
                 k+=1
-
         return arr
 
     # https://www.geeksforgeeks.org/heap-sort/   
@@ -111,13 +111,13 @@ class Sorting(object):
     # pass by object, the arr is a mutiple object that is being modified in the function, low is an integer which is also being modified, yet
     # only the arr is changed outside of this scope while the variable low is not! 
     def __partition(self, arr, low, high):
-            pivot = arr[high]
-            for j in range(low, high):
-                if arr[j]<= pivot:
-                    arr[low], arr[j] = arr[j], arr[low]
-                    low+=1
-            arr[low], arr[high] = arr[high], arr[low]
-            return low
+        pivot = arr[high]
+        for j in range(low, high):
+            if arr[j]<= pivot:
+                arr[low], arr[j] = arr[j], arr[low]
+                low+=1
+        arr[low], arr[high] = arr[high], arr[low]
+        return low
 
 sort = Sorting()
 li = [2, 5, 3, 8, 1, 6]
@@ -127,7 +127,7 @@ print(sort.selection_sort(li))
 li = [2, 5, 6, 8, 1, 3]
 print(sort.insertion_sort(li))
 li = [2, 5, 3, 8, 1, 6]
-print(sort.quick_sort(li, 0,len(li)-1)[len(li)-1-2+1])
+print(sort.quick_sort(li, 0,len(li)-1))
 li = [2, 5, 6, 8, 1, 3]
 print(sort.merge_sort(li))
 li = [2, 5, 6, 8, 1, 3]

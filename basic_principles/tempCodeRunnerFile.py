@@ -1,2 +1,1 @@
-if root.value==value:
-            return roo
+[len(li)-1-2+1]

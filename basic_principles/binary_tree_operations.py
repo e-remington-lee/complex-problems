@@ -186,6 +186,25 @@ class Node(object):
             return True
         return False
 
+    def symmetric_tree_iterative(self, node):
+        if not node:
+            return True
+        s1 = [node.left]
+        s2 = [node.right]
+        while s1 and s2:
+            left = s1.pop()
+            right = s2.pop()
+            if not left and not right:
+                continue
+            if not left or not right:
+                return False
+            if right.value!=left.value:
+                return False
+            else:
+                s1 += left.left, left.right
+                s2 += right.right, right.left
+        return True
+
 
     def palindrome_iterative(self, node):
         if not node:
@@ -208,8 +227,19 @@ class Node(object):
                 return False
         return True
         
-    def invert_binary_tree(self):
-        pass
+    def invert(self, node):
+        if node:
+            node.left, node.right = self.invert(node.right), self.invert(node.left)
+            return node
+
+    def invert_iterative(self, node):
+        stack = [node]
+        while stack:
+            node = stack.pop()
+            if node:
+                node.right, node.left = node.left, node.right
+                stack += node.right, node.left
+        return node
 
 
 # [8, 6, 11, 3, 7, 9, 13]
@@ -229,8 +259,8 @@ root = Node("a", left=b, right=c)
 b2 = Node("c", left=Node("g"), right=Node("f"))
 c2 = Node("c", left=Node("f"), right=Node("g"))
 root2 = Node("a", left=b2, right=c2)
-print(root2.palindrome(root2))
-print(root2.palindrome_iterative(root2))
+print(root2.symmetric_tree(root2))
+print(root2.symmetric_tree_iterative(root2))
 a3 = Node(3, left=Node(2))
 root3 = Node(1, right=a3)
 # root.preorder(root)
