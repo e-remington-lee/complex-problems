@@ -130,5 +130,5 @@ li = [2, 5, 3, 8, 1, 6]
 print(sort.quick_sort(li, 0,len(li)-1))
 li = [2, 5, 6, 8, 1, 3]
 print(sort.merge_sort(li))
-li = [2, 5, 6, 8, 1, 3]
+li = [2, 5, 6, 8, 1, 3,3,3,3,]
 print(sort.heap_sort(li))

@@ -55,6 +55,13 @@ class Solution:
             # 4; r=5
         return response
  
+    def best(self, num):
+        if num==0:
+            return 0
+        a, b = 1, 0
+        for i in range(num):
+            a, b = a+b, a
+        return a
 
 def main():
     steps = 6
