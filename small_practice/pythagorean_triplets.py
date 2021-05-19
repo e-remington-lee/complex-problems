@@ -9,18 +9,16 @@
 
 class Solution:
     def answer(self, li):
-        # a2 + b2 = c2, 
-        squared = {x**2 for x in li}
-        for x in li:
-            for y in li:
-                ans = x**2 + y**2
-                if ans in squared:
-                    return [x,y]
-        return [0,0]
+        squares = {x**2 for x in li}
+        for i, x in enumerate(li):
+            for y in li[i+1:]:
+                if x**2+y**2 in squares:
+                    return True
+        return False
 
 
 def main():
-    li = [3,4,5,13,10]
+    li = [12, 10,5,4,3]
     ans = Solution().answer(li)
     print(ans)
 

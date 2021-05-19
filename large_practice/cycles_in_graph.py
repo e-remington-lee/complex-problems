@@ -28,39 +28,40 @@
 # # True
 
 # Can you solve this in linear time, linear space?
+# https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
+# https://www.youtube.com/watch?v=HDUzBEG1GlA
+from collections import defaultdict
 
-#TODO how to implement DFS vs BFS
-class Solution:
-    def dfs_solution(self, graph: dict) -> bool:
-        vertexes = set()
-        parents = dict()
-        for vertex in graph.keys():
-            if vertex not in vertexes:
-                parents[vertex] = None
-                # Fails to not find graph when looking at C -> A after first pass from A-B-D-E
-                if self.dfs_2(vertex, vertexes, parents, graph):
+#TODO do with BFS and DFS, also make sure to do this better
+class Graph(object):
+    def __init__(self, graph:dict=defaultdict(list)):
+        super().__init__()      
+        self.graph = graph
+        
+    def add_edge(self, x, y):
+        self.graph[x].append(y)
+        self.graph[y].append(x)
+
+    def is_cycle(self):
+        visited={x:False for x in self.graph.keys()}
+        for vertex in self.graph.keys():
+            if not visited[vertex]:
+                if self.__cyclic_helper(vertex, visited, ""):
                     return True
         return False
 
-    def dfs_2(self, vertex: str, vertexes: set, parents: dict, graph: dict)->bool:
-        # 1, {a)
-        # 2, {a, b}
-        # 3, a, b, d
-        children = graph[vertex]
-        # a - b, c
-        # 1, b
-        # b - a,d
-        # 2, a - retuns nothing
-        # 3, d
-        # d - a, b, e
-        for value in children:
-            if vertex in vertexes and parents[vertex] != value:
-                return True
-            vertexes.add(vertex)
-            parents[value] = vertex
-            if vertex not in vertexes and self.dfs_2(value, vertexes, parents, graph):
+    def __cyclic_helper(self, vertex, visited, parent):
+        visited[vertex]=True
+        for i in self.graph[vertex]:
+            if not visited[i]:
+                if self.__cyclic_helper(i, visited, vertex):
+                    return True
+            elif parent!=i:
                 return True
         return False
+
+        
+
 
 def main():
     undirected_graph_true = {
@@ -70,15 +71,12 @@ def main():
         "D": ["A", "B", "E"],
         "E": ["D"]
     }
-
     undirected_graph_false = {
             "A": ["B", "C"],
-            "B": ["A", "D"],
-            "C": ["A"],
-            "D": ["E"],
-            "E": ["D"]
+            "B": ["D", "A"],
+            "D": ["B"],
+            "C": ["A"]
         }
-
     directed_graph = {
         "A": ["C", "B"],
         "B": ["D"],
@@ -86,10 +84,9 @@ def main():
         "D": ["A", "E"],
         "E": []
     }
-    # ans = Solution().dfs_solution(undirected_graph_true)
-    # print(ans)
-    ans2 = Solution().dfs_solution(undirected_graph_false)
-    print(ans2)
+    x = Graph(undirected_graph_false).is_cycle()
+    print(x)
+
 
 
 if __name__ == "__main__":
