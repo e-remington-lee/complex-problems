@@ -8,3 +8,5 @@ https://leetcode.com/discuss/interview-question/algorithms/880536/Facebook-or-Ph
 https://www.geeksforgeeks.org/minimum-removal-of-consecutive-similar-characters-required-to-empty-a-binary-string/
 
 https://leetcode.com/discuss/interview-question/algorithms/855021/Goldman-sachsor-new-grad-2021-sdeanalystor-1st-oa
+
+https://www.youtube.com/watch?v=0N_vjYKtx88

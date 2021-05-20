@@ -33,17 +33,20 @@
 from collections import defaultdict
 
 #TODO do with BFS and DFS, also make sure to do this better
+# time is O vertexes+edges. It looks like n^2, it traverses through each vertex+their edge, each vertex does not see each edge
+# space is linear to how many vertexes we have.
 class Graph(object):
     def __init__(self, graph:dict=defaultdict(list)):
         super().__init__()      
         self.graph = graph
-        
+
     def add_edge(self, x, y):
         self.graph[x].append(y)
         self.graph[y].append(x)
 
-    def is_cycle(self):
-        visited={x:False for x in self.graph.keys()}
+    def undirected_cycle(self):
+        # visited={x:False for x in self.graph.keys()}
+        visited = defaultdict(lambda: False)
         for vertex in self.graph.keys():
             if not visited[vertex]:
                 if self.__cyclic_helper(vertex, visited, ""):
@@ -60,8 +63,8 @@ class Graph(object):
                 return True
         return False
 
-        
-
+    def directed_cycle(self):
+        return self.undirected_cycle()
 
 def main():
     undirected_graph_true = {
@@ -77,14 +80,23 @@ def main():
             "D": ["B"],
             "C": ["A"]
         }
-    directed_graph = {
+    directed_graph_true = {
         "A": ["C", "B"],
         "B": ["D"],
         "C": [],
-        "D": ["A", "E"],
+        "D": ["A","B", "E"],
         "E": []
     }
-    x = Graph(undirected_graph_false).is_cycle()
+    directed_graph_false = {
+        "A": ["C", "B"],
+        "B": ["D"],
+        "C": [],
+        "D": ["B", "E"],
+        "E": []
+    }
+    x = Graph(undirected_graph_false).undirected_cycle()
+    print(x)
+    x = Graph(directed_graph_false).directed_cycle()
     print(x)
 
 

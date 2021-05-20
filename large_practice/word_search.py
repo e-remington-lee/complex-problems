@@ -55,6 +55,33 @@ class Solution:
         if word_len > len(search[0])-x:
             return False
         return "".join([search[y][x] for x in range(x, x+word_len)]) == word
+
+    def best(self, word, search):
+        for i, y in enumerate(search):
+            for j, x in enumerate(search[i]):
+                if x==word[0]:
+                    if self.__helper_right(word, search, i, j):
+                        return True
+                    elif self.__helper_down(word,search, i, j):
+                        return True
+        return False
+
+    def __helper_right(self, word, search,i, j):
+        l=len(word)
+        for ii, x in enumerate(search[i][j:]):
+            if l<=len(search[i][ii:]):
+                searched_word = "".join(search[i][ii:ii+l])
+                if searched_word==word:
+                    return True
+        return False
+
+    def __helper_down(self, word, search, i, j):
+        l=len(word)
+        li=[]
+        if l<=len(search[i:]):
+            if word=="".join([search[w][j] for w in range(i, i+l)]):
+                return True
+        return False
         
                     
                     
@@ -66,8 +93,8 @@ def main():
         ['A', 'N', 'O', 'B'],
         ['M', 'X', 'S', 'S']]
 
-    print(Solution().answer_brute(search, "FACU"))
-    print(Solution().answer1(search, "OCQOS"))
+    print(Solution().best("ACI", search))
+    print(Solution().best("ACQOS", search))
 
 main()
 
