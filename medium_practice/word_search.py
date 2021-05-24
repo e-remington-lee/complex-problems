@@ -68,16 +68,13 @@ class Solution:
 
     def __helper_right(self, word, search,i, j):
         l=len(word)
-        for ii, x in enumerate(search[i][j:]):
-            if l<=len(search[i][ii:]):
-                searched_word = "".join(search[i][ii:ii+l])
-                if searched_word==word:
-                    return True
+        if l<=len(search[i][j:]):
+            if word=="".join(search[i][j:j+l]):
+                return True
         return False
 
     def __helper_down(self, word, search, i, j):
         l=len(word)
-        li=[]
         if l<=len(search[i:]):
             if word=="".join([search[w][j] for w in range(i, i+l)]):
                 return True

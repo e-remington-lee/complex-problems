@@ -5,6 +5,7 @@ class Node(object):
         self.left = left
         self.right = right
 
+    #DFS
     def preorder(self, node):
         if node:
             print(node.value, end="")
@@ -21,13 +22,14 @@ class Node(object):
                 stack.append(current.right)
                 stack.append(current.left)
 
+    #DFS, probably the most accuracte dfs compared to the pre/post order
     def inorder(self, node):
         if node:
             self.in_order(node.left)
             print(node.value, end="")
             self.in_order(node.right)
 
-
+    #DFS
     def inorder_iterative(self, node):
         stack = []
         current = node
@@ -42,7 +44,7 @@ class Node(object):
             else:
                 break
 
-
+    # DFS
     def postorder(self, node):
         if node:
             self.post_order(node.left)
