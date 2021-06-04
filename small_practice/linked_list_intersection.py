@@ -25,7 +25,13 @@ class Solution(object):
             return 0
         else:
             return 1+self.get_length(node.next)
-
+        # l=0
+        # current=node
+        # while current:
+        #     l+=1
+        #     current=current.next
+        # return l
+        
     def iterative(self, node):
         if not node:
             return 0
