@@ -30,24 +30,10 @@ def main():
     n=16
     print(x.answer(n))
     print(x.c)
-    
-# 7
-# 5, 2
-# 3, 2, 
-# 1, 2
 
-# 4, 3
-# 2, 2,
-# 0, 2
-
-# 3 4
-# 1 2 
-# 0,1 
-
-# 2 5
-# 0 2
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
+
 
 # threes, x=divmod(13-4, 3)
 # print(3**threes*2*2)

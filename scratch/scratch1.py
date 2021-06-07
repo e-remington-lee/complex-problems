@@ -1,75 +1,39 @@
 class Solution:
-    # infinite loop bc our conditions continue to route to a return function
-    # 
-    def __helperbad(self, graph, vertex, parent, visited):
-        visited[vertex]=True
-        for edge in graph[vertex]:
-            if edge in visited and edge!=parent:
-                return True
+    def answer(self, li, target):
+        start=0
+        stop=len(li)-1
+        left = self.__find_left(start, stop, li, target)
+        right = self.__find_right(start, stop, li, target)
+        return [left, right]
+
+    def __find_left(self, start, stop, li, target):
+        if stop>=start:
+            mid = (stop-start)//2+start
+            if target<=li[mid]:
+                if li[mid]==target and (target>li[mid-1] or mid==0):
+                    return mid
+                else:
+                    return self.__find_left(start, mid-1, li ,target)
             else:
-                return self.__helper(graph, edge, vertex, visited)
-
-
-    def answer(self, graph):
-        visited={}
-
-        for vertex in graph.keys():
-            if vertex not in visited:
-                if self.__helper(graph, vertex, "", visited):
-                    return True
-        return False
-    
-    
-    def __helper(self, graph, vertex, parent, visited):
-        visited[vertex]=True
-        for edge in graph[vertex]:
-            if edge not in visited:
-                if self.__helper(graph, edge, vertex, visited):
-                    return True
-            elif edge!=parent:
-                return True
-        return False
-
-
-
-
-
-
-
-
-
-
+                return self.__find_left(mid+1, stop, li ,target)
+        return -1
+            
+    def __find_right(self, start, stop, li, target):
+        if stop>=start:
+            mid = (stop-start)//2+start
+            if target>=li[mid]:
+                if li[mid]==target and (target<li[mid+1] or mid==len(li)-1):
+                    return mid
+                else:
+                    return self.__find_right(mid+1, stop, li ,target)
+            else:
+                return self.__find_right(start, mid-1, li ,target)
+        return -1
 
 def main():
-    undirected_graph_true = {
-        "A": ["B", "C"],
-        "B": ["A", "D"],
-        "C": ["A"],
-        "D": ["B", "A", "E"],
-        "E": ["D"]
-    }
-    undirected_graph_false = {
-            "A": ["B", "C"],
-            "B": ["D", "A"],
-            "D": ["B"],
-            "C": ["A"]
-        }
-    directed_graph_true = {
-        "A": ["C", "B"],
-        "B": ["D"],
-        "C": [],
-        "D": ["A","B", "E"],
-        "E": []
-    }
-    directed_graph_false = {
-        "A": ["C", "B"],
-        "B": ["D"],
-        "C": [],
-        "D": ["B", "E"],
-        "E": []
-    }
+    li = [1,3,3,5,7,8,9,9,9,15]
     x=Solution()
-    print(x.answer(undirected_graph_true))
+    print(x.answer(li, 9))
 
 main()
 
@@ -85,4 +49,3 @@ def fib(n):
         first, second = second, first+second
     return second
 
-# print(fib(3))

@@ -43,6 +43,31 @@ class Solution:
                 return self.last_index(arr, low, mid-1, target)
         return -1
 
+
+    # def __find_left(self, start, stop, li, target):
+    #     if stop>=start:
+    #         mid = (stop-start)//2+start
+    #         if target<=li[mid]:
+    #             if li[mid]==target and (target>li[mid-1] or mid==0):
+    #                 return mid
+    #             else:
+    #                 return self.__find_left(start, mid-1, li ,target)
+    #         else:
+    #             return self.__find_left(mid+1, stop, li ,target)
+    #     return -1
+            
+    # def __find_right(self, start, stop, li, target):
+    #     if stop>=start:
+    #         mid = (stop-start)//2+start
+    #         if target>=li[mid]:
+    #             if li[mid]==target and (target<li[mid+1] or mid==len(li)-1):
+    #                 return mid
+    #             else:
+    #                 return self.__find_right(mid+1, stop, li ,target)
+    #         else:
+    #             return self.__find_right(start, mid-1, li ,target)
+    #     return -1
+
         
 
 def main():
@@ -50,5 +75,11 @@ def main():
     target = 2
     ans = Solution().answer(arr, target)
     print(ans)
+    print(__file__)
+    import sys
+    sys.path.append(".")
+    from utilities import to_string
+    flashcard=to_string.file_to_string(__file__)
+    print(flashcard)
 
 main()

@@ -22,6 +22,4 @@ def main():
     ans = Solution().answer(li)
     print(ans)
 
-print(__name__)
-if __name__ == "__main__":
-    main()
+main()

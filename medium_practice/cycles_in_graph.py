@@ -48,7 +48,10 @@ class Graph(object):
         # visited={x:False for x in self.graph.keys()}
         visited = defaultdict(lambda: False)
         for vertex in self.graph.keys():
+            # just making sure I understand the problem better, I know that if I do not have this check in here, I need to reset the 
+            # visited graph each time or the integrity of the search is compromisd bc it carries over for each loop
             if not visited[vertex]:
+            # visited = defaultdict(lambda: False)
                 if self.__cyclic_helper(vertex, visited, ""):
                     return True
         return False
@@ -115,7 +118,7 @@ def main():
         "D": ["B", "E"],
         "E": []
     }
-    x = Graph(undirected_graph_false).undirected_cycle()
+    x = Graph(undirected_graph_true).undirected_cycle()
     print(x)
     x = Graph(directed_graph_false).directed_cycle()
     print(x)

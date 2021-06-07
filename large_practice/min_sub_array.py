@@ -81,5 +81,4 @@ def main():
     x = Solution().optimal(arr, num)
     print(x)
 
-if __name__ == "__main__":
-    main()
+main()
