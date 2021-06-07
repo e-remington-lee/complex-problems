@@ -31,11 +31,10 @@ class LinkedList:
         current = self.head
         if current is None:
             self.head = node
-
-        while current.next:
-            current = current.next
-        
-        current.next = node
+        else:
+            while current.next:
+                current = current.next
+            current.next = node
 
 
     def insert(self, node, index):
@@ -271,3 +270,8 @@ n1 = Node(1, Node(2, Node(2, Node(2, Node(2, Node(1))))))
 ll2 = LinkedList(n1)
 print(ll2)
 print(ll2.palindrome())
+import sys
+sys.path.append(".")
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)

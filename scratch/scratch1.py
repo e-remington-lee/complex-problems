@@ -1,51 +1,71 @@
-class Solution:
-    def answer(self, li, target):
-        start=0
-        stop=len(li)-1
-        left = self.__find_left(start, stop, li, target)
-        right = self.__find_right(start, stop, li, target)
-        return [left, right]
+class Node(object):
+    def __init__(self, value, next=None):
+        self.value=value
+        self.next=next
 
-    def __find_left(self, start, stop, li, target):
-        if stop>=start:
-            mid = (stop-start)//2+start
-            if target<=li[mid]:
-                if li[mid]==target and (target>li[mid-1] or mid==0):
-                    return mid
-                else:
-                    return self.__find_left(start, mid-1, li ,target)
+'''
+Given a string with the initial condition of dominoes, where:
+
+. represents that the domino is standing still
+L represents that the domino is falling to the left side
+R represents that the domino is falling to the right side
+
+Figure out the final position of the dominoes. If there are dominoes that get pushed on both ends, the force cancels out and that domino remains upright.
+'''  
+class Solution:
+    def answer(self, n):
+        force = [0]*len(n)
+        f=0
+        for i in range(len(n)):
+            if n[i]=="R":
+                f=len(n)
+            elif n[i]=="L":
+                f=0
             else:
-                return self.__find_left(mid+1, stop, li ,target)
-        return -1
-            
-    def __find_right(self, start, stop, li, target):
-        if stop>=start:
-            mid = (stop-start)//2+start
-            if target>=li[mid]:
-                if li[mid]==target and (target<li[mid+1] or mid==len(li)-1):
-                    return mid
-                else:
-                    return self.__find_right(mid+1, stop, li ,target)
+                f=max(0, f-1)
+            force[i]+=f
+        
+        fl=0
+        for i in range(len(n)-1, -1, -1):
+            if n[i]=="L":
+                fl=-len(n)
+            elif n[i]=="R":
+                fl=0
             else:
-                return self.__find_right(start, mid-1, li ,target)
-        return -1
+                fl=min(fl+1, 0)
+            force[i]+=fl
+        
+        response=[]
+        for x in force:
+            if x>0:
+                response.append("R")
+            elif x<0:
+                response.append("L")
+            else:
+                response.append(".")
+        return "".join(response)
+
+
+
 
 def main():
-    li = [1,3,3,5,7,8,9,9,9,15]
+    dominos="..R..LL..R."
     x=Solution()
-    print(x.answer(li, 9))
+    print(x.answer(dominos))
 
 main()
 
 
-
-
 def fib(n):
-    if n<=2:
-        return 1
+    #index 0, 1, 2 are 1,1,2 vs indexing at 1,2,3 as 1,1,2
     first=0
     second=1
-    for i in range(2, n+1):
+    for _ in range(n):
         first, second = second, first+second
     return second
+import sys
+sys.path.append(".")
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)
 

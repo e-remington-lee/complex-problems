@@ -12,15 +12,11 @@
 
 # Can you find a solution in O(n) time?
 
-#TODO
-# Fid sequence is 2^n, know how to write it, explain it
-# When you find yourself using the fib sequence, there is usually a more efficient method out there such as working from the bottom up
 class Solution:
     # 1, 1, 2, 3, 5, 8, 13, 21
     def answer(self, steps: int):
         return self.fib(steps)
     
-    # TODO reverse engineer this to a better degree
     def fib(self, index):
         if index<=1:
             return 1
@@ -55,19 +51,23 @@ class Solution:
             # 4; r=5
         return response
  
-    def best(self, num):
-        if num==0:
-            return 0
-        a, b = 1, 0
-        for i in range(num):
-            a, b = a+b, a
-        return a
+    def best(self, n):
+        first=0
+        second=1
+        for _ in range(n):
+            first, second = second, first+second
+        return second
 
 def main():
     steps = 6
     response = Solution().answer(steps)
-    resp2 = Solution().not_fib(steps)
+    resp2 = Solution().best(steps)
     print(response)
     print(resp2)
+    import sys
+    sys.path.append(".")
+    from utilities import to_string
+    flashcard=to_string.file_to_string(__file__)
+    print(flashcard)
 
 main()

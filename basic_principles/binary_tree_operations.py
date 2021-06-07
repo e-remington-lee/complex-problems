@@ -271,7 +271,12 @@ root3 = Node(1, right=a3)
 # root.in_order_iterative(root)
 # root.post_order(root)
 # root.post_order_iterative(root)
-print(root.tree_level_order(root2))
-print(root.max_depth(root3))
-print(root.search_node(root3, 3))
+print(root.tree_level(root2))
+# print(root.max_depth(root3))
+# print(root.search_node(root3, 3))
+# import sys
+# sys.path.append(".")
+# from utilities import to_string
+# flashcard=to_string.file_to_string(__file__)
+# print(flashcard)
 

@@ -2,7 +2,7 @@
 # Sorting is usually between the worst case (brute force) and the best case scenario
 # https://lamfo-unb.github.io/2019/04/21/Sorting-algorithms/#:~:text=%2B1%5D%20%3D%20temp-,Quicksort,greater%20numbers%20on%20the%20right.
 class Sorting(object):
-    # O(n*2)
+    # O(n*2), constant space
     # https://www.youtube.com/watch?v=xli_FI7CuzA
     def bubble_sort(self, arr):
         n = len(arr)
@@ -12,7 +12,7 @@ class Sorting(object):
                     arr[j], arr[j+1] = arr[j+1], arr[j]
         return arr
 
-    # O(n*2)
+    # O(n*2), constant space
     # https://www.youtube.com/watch?v=JU767SDMDvA
     def insertion_sort(self, arr):
         for i in range(1, len(arr)):
@@ -24,7 +24,7 @@ class Sorting(object):
             arr[j+1] = key
         return arr
 
-    # O(n*2)
+    # O(n*2), constant space
     # https://www.youtube.com/watch?v=g-PGLbMth_g
     def selection_sort(self, arr):
         n = len(arr)
@@ -38,7 +38,7 @@ class Sorting(object):
 
     #https://www.youtube.com/watch?v=4VqmGXwpLqc
     #https://www.geeksforgeeks.org/merge-sort/
-    # average, o(n*log(n))
+    # average, o(n*log(n)), space O n (sometimes)
     def merge_sort(self, arr):
         if len(arr)>1:
             mid = len(arr)//2
@@ -132,3 +132,8 @@ li = [2, 5, 6, 8, 1, 3]
 print(sort.merge_sort(li))
 li = [2, 5, 6, 8, 1, 3,3,3,3,]
 print(sort.heap_sort(li))
+import sys
+sys.path.append(".")
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)
