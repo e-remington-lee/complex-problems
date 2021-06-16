@@ -1,9 +1,42 @@
-# import medium_practice as one
-import medium_practice as two
-from large_practice import min_sub_array
+class Node(object):
+    def __init__(self, value, next=None):
+        self.value=value
+        self.next=next
+ 
+class Solution:
+    def answer(self, arr):
+        pass
 
 
-# one.Solution().answer()
-min_sub_array.main()
-two.integer_break.Solution().answer(9)
+def main():
+    arr = [3,6,3,4,1]
+    ans = Solution().answer(arr)
+    print(ans)
+
+if __name__=="__main__":
+    main()
+
+
+class NodesSumToZero(object):
+    def answer(self, node):
+        dummy_head=start = Node(0, node)
+        map={}
+        sum=0
+        while start:
+            sum+=start.value
+            map[sum]=start
+            start=start.next
+        start=dummy_head
+        sum=0
+        while start:
+            sum+=start.value
+            start.next=map[sum].next
+            start=start.next
+        return dummy_head.next
+
+
+import sys
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)
 
