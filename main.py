@@ -12,6 +12,15 @@ def main():
     arr = [3,6,3,4,1]
     ans = Solution().answer(arr)
     print(ans)
+    import heapq
+    heapq.heapify(arr)
+    print(arr)
+    print(heapq.heappop(arr))
+    print(heapq.heappop(arr))
+    print(heapq.heappop(arr))
+    print(heapq.heappop(arr))
+    print(heapq.heappop(arr))
+    heapq.heapify
 
 if __name__=="__main__":
     main()
@@ -35,8 +44,8 @@ class NodesSumToZero(object):
         return dummy_head.next
 
 
-import sys
-from utilities import to_string
-flashcard=to_string.file_to_string(__file__)
-print(flashcard)
+# import sys
+# from utilities import to_string
+# flashcard=to_string.file_to_string(__file__)
+# print(flashcard)
 
