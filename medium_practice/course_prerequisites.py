@@ -26,18 +26,23 @@ class Solution:
 
 
 c = {
-  'CSC300': ['CSC100', 'CSC200'], 
-  'CSC200': ['CSC100'], 
-  'CSC100': []
+'CSC300': ['CSC100', 'CSC200'], 
+'CSC200': ['CSC100'], 
+'CSC100': []
 }
 c2 = {
-  'g': ['e', 'f'], 
-  'f': ['d', 'c'], 
-  'e': ['d', 'c', 'b'],
-  'd': ['b', 'a'],
-  'c': ['b', 'a'],
-  'b': ['a'],
-  'a': []
+'g': ['e', 'f'], 
+'f': ['d', 'c'], 
+'e': ['d', 'c', 'b'],
+'d': ['b', 'a'],
+'c': ['b', 'a'],
+'b': ['a'],
+'a': []
 }
 x=Solution()
 print(x.answer(c2))
+import sys
+sys.path.append(".")
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)
