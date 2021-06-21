@@ -1,26 +1,44 @@
+# class Node(object):
+#     def __init__(self, value, next=None):
+#         self.value=value
+#         self.next=next
+
 class Node(object):
-    def __init__(self, value, next=None):
+    def __init__(self, value, right=None, left=None):
         self.value=value
-        self.next=next
+        self.right=right
+        self.left=left
  
 class Solution:
-    def answer(self, arr):
-        pass
+    def answer(self, node):
+        if node:
+            node.left, node.right=node.right, node.left
+            self.answer(node.left)
+            self.answer(node.right)
+            return node
+
+    def other_invert(self, node):
+        if node:
+            node.left, node.right = self.other_invert(node.right), self.other_invert(node.left)
+            return node
+
+    def preorder(self, node):
+        if node:
+            print(node.value)
+            self.preorder(node.left)
+            self.preorder(node.right)
 
 
 def main():
-    arr = [3,6,3,4,1]
-    ans = Solution().answer(arr)
-    print(ans)
-    import heapq
-    heapq.heapify(arr)
-    print(arr)
-    print(heapq.heappop(arr))
-    print(heapq.heappop(arr))
-    print(heapq.heappop(arr))
-    print(heapq.heappop(arr))
-    print(heapq.heappop(arr))
-    heapq.heapify
+    b = Node("b", left=Node("d"), right=Node("e"))
+    c = Node("c", left=Node("f"), right=Node("g"))
+    root = Node("a", left=b, right=c)
+    x=Solution()
+    n=x.other_invert(root)
+    print(x.preorder(n))
+
+    
+
 
 if __name__=="__main__":
     main()

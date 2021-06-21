@@ -59,19 +59,84 @@ class Graph(object):
     def __cyclic_helper(self, vertex, visited, parent):
         visited[vertex]=True
         for i in self.graph[vertex]:
+            if visited[i] and parent!=i:
+                return True
             if not visited[i]:
                 if self.__cyclic_helper(i, visited, vertex):
                     return True
-            elif parent!=i:
+            # if not visited[i]:
+            #     if self.__cyclic_helper(i, visited, vertex):
+            #         return True
+            # elif parent!=i:
+            #     return True
+        return False
+
+    def directed_cycle_no_back_edge(self):
+        # visited = defaultdict(lambda: False)        
+        for vertex in self.graph.keys():
+            '''
+            We need to reset the recent/visited stacks with each loop. If we have:
+            directed_graph_false2 = {
+                "C": ["A", "B"],
+                "B": ["A"],
+                "A": ["C"]
+            }
+            and we do not reset the stacks, C->A->C is false bc C is A's parent. If we did not reset them, then when we have B->A, A is in seen and 
+            is not in the recent_stack, so it will not continue. If it did continue we would find a cycle bc B->A->C-B is a cycle. So we need to reset
+            them each time. This makes sense bc in a directed graph, searching from each node can deliver different results
+            '''
+            visited = defaultdict(lambda: False)
+            recent_stack = defaultdict(lambda: False)
+            if self.directed_helper(vertex, visited, recent_stack, ""):
                 return True
         return False
 
-    def directed_cycle(self):
-        return self.undirected_cycle()
+    def directed_helper(self, vertex, visited, recent_stack, parent):
+        visited[vertex], recent_stack[vertex] = True, True
+        for node in self.graph[vertex]:
+            if not visited[node]:
+                if self.directed_helper(node, visited, recent_stack, vertex):
+                    return True
+            elif recent_stack[node] and parent is not node:
+                return True
+            # if visited[node] and recent_stack[node] and parent is not node:
+            #     return True
+            # elif not visited[node]:
+            #     if self.directed_helper(node, visited, recent_stack, vertex):
+            #         return True
+        recent_stack[vertex]=False
+        return False
+
+    def directed_cycle_with_back_edge(self):
+        visited = defaultdict(lambda: False)
+        recent_stack = defaultdict(lambda: False)       
+        for vertex in self.graph.keys():    
+            if self.directed_helper_with_back_edge(vertex, visited, recent_stack):
+                return True
+        return False
+
+    def directed_helper_with_back_edge(self, vertex, visited, recent_stack):
+        visited[vertex], recent_stack[vertex] = True, True
+        for node in self.graph[vertex]:
+            if not visited[node]:
+                if self.directed_helper_with_back_edge(node, visited, recent_stack):
+                    return True
+            elif recent_stack[node]:
+                return True
+            # if visited[node] and recent_stack[node] and parent is not node:
+            #     return True
+            # elif not visited[node]:
+            #     if self.directed_helper_with_back_edge(node, visited, recent_stack, vertex):
+            #         return True
+        recent_stack[vertex]=False
+        return False
+
+    
+
+
 
     def answer(self, graph):
         visited={}
-
         for vertex in graph.keys():
             if vertex not in visited:
                 if self.__helper(graph, vertex, "", visited):
@@ -104,13 +169,6 @@ def main():
             "D": ["B"],
             "C": ["A"]
         }
-    directed_graph_true = {
-        "A": ["C", "B"],
-        "B": ["D"],
-        "C": [],
-        "D": ["A","B", "E"],
-        "E": []
-    }
     directed_graph_false = {
         "A": ["C", "B"],
         "B": ["D"],
@@ -118,11 +176,31 @@ def main():
         "D": ["B", "E"],
         "E": []
     }
+    directed_graph_true = {
+        "C": ["A", "B"],
+        "B": ["A"],
+        "A": ["C"]
+    }
+    directed_graph_false = {
+        "C": ["A", "B"],
+        "B": ["A"],
+        "A": []
+    }
+    directed_graph_true_back_edge = {
+        "C": ["A", "B"],
+        "B": [],
+        "A": ["C"]
+    }
     x = Graph(undirected_graph_true).undirected_cycle()
     print(x)
-    x = Graph(directed_graph_false).directed_cycle()
+    x = Graph(directed_graph_false).directed_cycle_no_back_edge()
     print(x)
-
+    x = Graph(directed_graph_false).directed_cycle_with_back_edge()
+    print(x)
+    # x = Graph(directed_graph_true_back_edge).directed_cycle_with_back_edge()
+    # print(x)
+    # x = Graph(directed_graph_true_back_edge).directed_cycle_no_back_edge()
+    # print(x)
 
 
 if __name__ == "__main__":
