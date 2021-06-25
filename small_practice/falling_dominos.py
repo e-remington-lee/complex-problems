@@ -6,6 +6,9 @@ L represents that the domino is falling to the left side
 R represents that the domino is falling to the right side
 
 Figure out the final position of the dominoes. If there are dominoes that get pushed on both ends, the force cancels out and that domino remains upright.
+
+time: O n, we make multiple loops but it is still linear
+space: o n, we have the force/response functions, both are linear space
 '''
 class Solution(object):
     def answer(self, dominos):

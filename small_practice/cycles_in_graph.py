@@ -72,7 +72,7 @@ class Graph(object):
         return False
 
     def directed_cycle_no_back_edge(self):
-        # visited = defaultdict(lambda: False)        
+        recent_stack = defaultdict(lambda: False)
         for vertex in self.graph.keys():
             '''
             We need to reset the recent/visited stacks with each loop. If we have:
@@ -86,9 +86,9 @@ class Graph(object):
             them each time. This makes sense bc in a directed graph, searching from each node can deliver different results
             '''
             visited = defaultdict(lambda: False)
-            recent_stack = defaultdict(lambda: False)
-            if self.directed_helper(vertex, visited, recent_stack, ""):
-                return True
+            if not visited[vertex]:
+                if self.directed_helper(vertex, visited, recent_stack, ""):
+                    return True
         return False
 
     def directed_helper(self, vertex, visited, recent_stack, parent):
@@ -97,7 +97,7 @@ class Graph(object):
             if not visited[node]:
                 if self.directed_helper(node, visited, recent_stack, vertex):
                     return True
-            elif recent_stack[node] and parent is not node:
+            elif recent_stack[node] and parent!=node:
                 return True
             # if visited[node] and recent_stack[node] and parent is not node:
             #     return True
@@ -131,10 +131,6 @@ class Graph(object):
         recent_stack[vertex]=False
         return False
 
-    
-
-
-
     def answer(self, graph):
         visited={}
         for vertex in graph.keys():
@@ -142,8 +138,7 @@ class Graph(object):
                 if self.__helper(graph, vertex, "", visited):
                     return True
         return False
-    
-    
+            
     def __helper(self, graph, vertex, parent, visited):
         visited[vertex]=True
         for edge in graph[vertex]:
@@ -193,7 +188,7 @@ def main():
     }
     x = Graph(undirected_graph_true).undirected_cycle()
     print(x)
-    x = Graph(directed_graph_false).directed_cycle_no_back_edge()
+    x = Graph(directed_graph_true).directed_cycle_no_back_edge()
     print(x)
     x = Graph(directed_graph_false).directed_cycle_with_back_edge()
     print(x)

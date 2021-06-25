@@ -9,24 +9,54 @@ class Node(object):
         self.right=right
         self.left=left
  
+from collections import defaultdict
 class Solution:
-    def answer(self, node):
-        if node:
-            node.left, node.right=node.right, node.left
-            self.answer(node.left)
-            self.answer(node.right)
-            return node
+    def answer(self, courses):
+        response=[]
+        recent_seen=defaultdict(lambda: False)
+        seen=defaultdict(lambda: False)
+        for course in courses.keys():
+            if not seen[course]:
+                if self.answer_helper(course, courses, seen, recent_seen, ""):
+                    return None
+        return False
 
-    def other_invert(self, node):
-        if node:
-            node.left, node.right = self.other_invert(node.right), self.other_invert(node.left)
-            return node
+    def answer_helper(self, course, courses, seen, recent_seen, response):
+        seen[course]=True
+        recent_seen[course]=True
+        for c2 in courses[course]:
+            if not seen[c2]:
+                if self.answer_helper(c2, courses, seen, recent_seen, course):
+                    return True
+            elif recent_seen[c2]:
+                return True
+            
+        recent_seen[course]=False
+        # response.append(course)
+        return False
+        
+    # def answer(self, courses):
+    #     response=[]
+    #     seen=defaultdict(lambda: False)
+    #     for course in courses.keys():
+    #         recent_seen=defaultdict(lambda: False)
+    #         if not seen[course]:
+    #             if self.answer_helper(course, courses, seen, recent_seen, response):
+    #                 return None
+    #     return response
 
-    def preorder(self, node):
-        if node:
-            print(node.value)
-            self.preorder(node.left)
-            self.preorder(node.right)
+    # def answer_helper(self, course, courses, seen, recent_seen, response):
+    #     seen[course]=True
+    #     recent_seen[course]=True
+    #     for c2 in courses[course]:
+    #         if recent_seen[c2]:
+    #             return True
+    #         elif not seen[c2]:
+    #             if self.answer_helper(c2, courses, seen, recent_seen, response):
+    #                 return True
+    #     recent_seen[course]=False
+    #     response.append(course)
+    #     return False 
 
 
 def main():
@@ -34,8 +64,12 @@ def main():
     c = Node("c", left=Node("f"), right=Node("g"))
     root = Node("a", left=b, right=c)
     x=Solution()
-    n=x.other_invert(root)
-    print(x.preorder(n))
+    courses = {
+        'CSC300': ['CSC100', 'CSC200'], 
+        'CSC200': ['CSC100'], 
+        'CSC100': []
+        }
+    print(x.answer(courses))
 
     
 
@@ -63,6 +97,7 @@ class NodesSumToZero(object):
 
 
 # import sys
+# sys.path.append(".")
 # from utilities import to_string
 # flashcard=to_string.file_to_string(__file__)
 # print(flashcard)
