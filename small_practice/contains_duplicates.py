@@ -13,11 +13,11 @@ class ContainsDuplicates(object):
         return False
 
     def answer2(self, nums):
-        seen=set()
+        seen={}
         for x in nums:
             if x in seen:
                 return True
-            seen.add(x)
+            seen[x]="0"
         return False
 
 
