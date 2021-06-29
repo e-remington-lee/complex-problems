@@ -1,35 +1,6 @@
-class Node:
-    def __init__(self, value, node=None):
-        self.value = value
-        self.next = node
-   
-class LinkedList:
-    def __init__(self, node=None):
-        self.head = node
-        self.tail = None
-    
-    def add_node(self, node):
-        if self.head == None:
-            self.head = node
-        elif self.head != None and self.tail == None:
-            self.tail = self.head
-        self.head.next = node
-        self.head = node
-        
-    def _traverse_helper(self, node):
-        if node is not None:
-            print(node.value)
-            self._traverse_helper(node.next)
-    
-    def traverse(self):
-        if self.tail is not None:
-            self._traverse_helper(self.tail)
-        else:
-            return "Not instantiated"
-        
-
-## Given a 2d array with colors, find the largest continuous path of a single color and return the length of that path
-## 
+'''
+Given a 2d array with colors, find the largest continuous path of a single color and return the length of that path
+'''
 class Solution:
     def answer(self, grid):
         max_count = 0
