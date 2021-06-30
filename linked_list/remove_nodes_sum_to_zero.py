@@ -55,19 +55,19 @@ class Solution(object):
             start=start.next
         return dummy_head.next
 
-    def optimal(self, node):
-        left=right=Node(0, node)
-        s=0
-        hm={0:left}
-        right=right.next
-        while right:
-            s+=right.value
-            if s in hm:
-                hm[s].next=right.next
-            else:
-                hm[s]=right
-            right=right.next
-        return left.next
+    # TODO does not work for [1,3,2,-3,-2,5,5,-5,1]
+    # def optimal(self, node):
+    #     left=right=Node(0, node)
+    #     s=0
+    #     hm={}
+    #     while right:
+    #         s+=right.value
+    #         if s in hm:
+    #             hm[s].next=right.next
+    #         else:
+    #             hm[s]=right
+    #         right=right.next
+    #     return left.next
 
 
 def main():
