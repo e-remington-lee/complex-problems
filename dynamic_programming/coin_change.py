@@ -14,22 +14,26 @@ class CoinChange(object):
     '''
     good recursion problem
     '''
-    def brute(self, coins, amount):
-        if amount==0:
-            return 0
-        response = float('inf')
-        for coin in coins:
-            if amount-coin>=0:
-                response=min(response, self.recursive(coins, amount-coin)+1)
-        if response == float('inf'):
+    def brute(self, coins, target):
+        answer = self.brute_helper(coins, target)
+        if answer==float('inf'):
             return -1
         else:
-            return response
+            return answer
+        
+    def brute_helper(self, coins, target):
+        if target==0:
+            return 0
+        count=float('inf')
+        for coin in coins:
+            if coin<=target:
+                count=min(count, 1+self.brute_helper(coins, target-coin))
+        return count
 
 
 # print(divmod(11,1))
-coins = [1,3,10]
-amount=11
+coins = [2,5,10]
+amount=3
 x = CoinChange()
 print(x.answer(coins, amount))
 print(x.brute(coins, amount))

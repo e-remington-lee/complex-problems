@@ -39,18 +39,35 @@ class Solution(object):
     def answer(self, node):
         dummy_head=start = Node(0, node)
         map={}
+        #map={0, start}
         sum=0
         while start:
             sum+=start.value
             map[sum]=start
             start=start.next
         start=dummy_head
+        # we cannot do this bc it disassociates the left.next from the right.next if the first node is to be removed
+        # start=dummy_head.next
         sum=0
         while start:
             sum+=start.value
             start.next=map[sum].next
             start=start.next
         return dummy_head.next
+
+    def optimal(self, node):
+        left=right=Node(0, node)
+        s=0
+        hm={0:left}
+        right=right.next
+        while right:
+            s+=right.value
+            if s in hm:
+                hm[s].next=right.next
+            else:
+                hm[s]=right
+            right=right.next
+        return left.next
 
 
 def main():

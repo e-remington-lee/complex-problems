@@ -14,7 +14,7 @@ class Solution(object):
         if not root:
             return True
         height = self.height(root)
-        return height!=-1
+        return height!=float('inf')
     
     def height(self, node):
         if not node:
@@ -23,7 +23,9 @@ class Solution(object):
         rh = self.height(node.right)
         lh = self.height(node.left)
         if rh==-1 or lh==-1 or abs(rh-lh)>1:
-            return -1
+            return float('inf')
+        # abs(rh-lh)>1:
+        #     return float('inf')
         else:
             return max(rh+1, lh+1) 
 
