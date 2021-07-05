@@ -1,9 +1,6 @@
 '''
 https://leetcode.com/problems/longest-increasing-subsequence/discuss/?currentPage=1&orderBy=most_votes&query=
 
-brute time: O N^2, we traverse the list and the keys of the map
-time: O*log(O(n)), we search through all the numbers and do a binary search during each loop.
-space: O, we store the keys of the map
 '''
 class LongestIncreasingSubsequence(object):
     def my_answer(self, nums):
@@ -23,6 +20,8 @@ class LongestIncreasingSubsequence(object):
     '''
     Once you realize the first iteration does nothing, you can optimize to range(1, len(nums)), but don't worry about that at first,
     bc you are more likely to fuck up, the first implementation does not have to be 100% right, just needs to work 
+    
+    time n^2, space n
     '''
     def answer1(self, nums):
         dp = [1]*len(nums)
@@ -46,6 +45,10 @@ class LongestIncreasingSubsequence(object):
                 response[i]=num
         return len(response)
 
+    '''
+    time: O(log(n)*n), we search through the entire num list and do a binary search each time
+    space: O (n), we can have a list of all the numbers at worst
+    '''
     def optimal(self, nums):
         response=[nums[0]]
         for num in nums:
@@ -56,16 +59,18 @@ class LongestIncreasingSubsequence(object):
                 response[i]=num
         return len(response)
 
+    '''
+    Making it really optimal, runs faster, ect,
+    '''
     def optimal2(self, nums):
         sub = [nums[0]]
         for num in nums[1:]:
-            #implement binary search
-            i = self.binary_search_iterative(sub, num)
-            # If num is greater than any element in sub
+            # If num is greater than the last element (which is the largest)
             if num>sub[-1]:
                 sub.append(num)
             # Otherwise, replace the first element in sub greater than or equal to num
             else:
+                i = self.binary_search_iterative(sub, num)
                 sub[i]=num
         return len(sub)
 
@@ -104,6 +109,11 @@ nums=[0,3,1,6,2,2,7]
 x=LongestIncreasingSubsequence()
 print(x.answer2(nums))
 print(x.binary_search_iterative(a, 5))
+import sys
+sys.path.append(".")
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)
 
 '''
 1. dynamic programming
@@ -153,6 +163,7 @@ Given NN as the length of nums,
 Time complexity: O(N^2)O(N 
 2
  )
+ 
 
 We use two nested for loops resulting in 1 + 2 + 3 + 4 + ... + N = \dfrac {N * (N + 1)}{2}1+2+3+4+...+N= 
 2

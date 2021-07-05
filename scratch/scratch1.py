@@ -12,31 +12,43 @@ class Node(object):
         return "".join(r)
 
 class Solution:
-    def answer(self, node):
-        left=right=Node(0, node)
-        s=0
-        # hm={0:left}
-        # right=right.next
-        hm={}
-        while right:
-            s+=right.value
-            hm[s]=right
-            right=right.next
-        # right=left.next
-        right=left
-        s=0
-        while right:
-            s+=right.value
-            if s in hm:
-                right.next=hm[s].next
-            right=right.next
-        return left.next
+    def answer(self, coins, target):
+        dp = [0]+[float('inf')]*target
+        for i in range(1, target+1):
+            for coin in coins:
+                if i-coin>=0:
+                    dp[i]=min(dp[i], dp[i-coin]+1)
+        if dp[-1]==float('inf'):
+            return -1
+        else:
+            return dp[-1]
 
+    # def answer(self, coins, target):
+    #     if target==0:
+    #         return 1
+    #     else:
+    #         response = self.answer_helper(coins, target)
+        
+    #     if response==float('inf'):
+    #         return -1
+    #     else:
+    #         return response
 
+    # def answer_helper(self, coins, target):
+    #     if target==0:
+    #         return 0
+    #     count=float('inf')
+    #     for coin in coins:
+    #         if target-coin>=0:
+    #             count=min(count, self.answer_helper(coins, target-coin)+1)
+    #     return count
         
 
+
+
 def main():
-    arr = [7,1,5,3,6,4,0,]
+    # arr = [7,1,5,3,6,4,0]
+    arr = [1,7,5,3,2,4]
     coins=[2,5,10]
     i=10
     s="pwwxkew"
@@ -47,20 +59,13 @@ def main():
         }
     # n1 = Node(10, Node(0, Node(5, Node(-3, Node(-3, Node(1, Node(7, Node(4, Node(-4)))))))))
     n1=Node(1, Node(-1))
-    ans = Solution().answer(n1)
+    ans = Solution().answer(coins, 8)
     print(ans)
 
 if __name__=="__main__":
     main()
 
 
-def fib(n):
-    #index 0, 1, 2 are 1,1,2 vs indexing at 1,2,3 as 1,1,2
-    first=0
-    second=1
-    for _ in range(n):
-        first, second = second, first+second
-    return second
 import sys
 sys.path.append(".")
 from utilities import to_string
