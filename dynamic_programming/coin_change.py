@@ -1,5 +1,9 @@
 
 class CoinChange(object):
+    '''
+    time: O (n*m), target*coins
+    space: O N, target
+    '''
     def answer(self, coins, amount):
         amount_list = [0] + [float('inf')]*amount
         # amount_list = [float('inf')]*amount
@@ -13,6 +17,7 @@ class CoinChange(object):
     
     '''
     good recursion problem
+    time: target^coins, because worst case each coin has targer responses and the responses will need to be evaluated by the other coins
     '''
     def brute(self, coins, target):
         answer = self.brute_helper(coins, target)

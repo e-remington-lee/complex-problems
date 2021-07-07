@@ -27,6 +27,8 @@ courses = {
 }
 print courses_to_take(courses)
 # ['CSC100', 'CSC200', 'CSC300']
+
+https://leetcode.com/problems/course-schedule/
 '''
 from collections import defaultdict
 
