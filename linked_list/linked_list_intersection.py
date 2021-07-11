@@ -39,10 +39,11 @@ class Solution(object):
         while node:
             count+=1
             node=node.next
+        return count
     
-    def optimal(self, n1, n2):
-        l1, l2 = self.get_length(n1), self.get_length(n2)
-        cur_1, cur_2 = n1, n2
+    def optimal(self, headA, headB):
+        l1, l2 = self.get_length(headA), self.get_length(headB)
+        cur_1, cur_2 = headA, headB
         if l1>l2:
             for i in range(l1-l2):
                 cur_1=cur_1.next
@@ -54,9 +55,25 @@ class Solution(object):
             cur_2=cur_2.next
         return cur_1
 
-link=Node(3, Node(5, Node(7)))
-n1 = Node(2, link)
-n2 = Node(4, Node(8, link))
 
-x = Solution().optimal(n1, n2)
+    def idk(self, headA, headB):
+        pA = headA
+        pB = headB
+
+
+        while pA != pB:
+            pA = headB if pA is None else pA.next
+            pB = headA if pB is None else pB.next
+        
+        return pA
+
+link=Node(3, Node(5, Node(7)))
+headA = Node(2, link)
+headB = Node(4, Node(8, link))
+
+x = Solution().idk(headA, headB)
 print(x.value)
+
+li=[1,2,3]
+li.insert(0,5)
+print(li)

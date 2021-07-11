@@ -1,0 +1,89 @@
+# https://leetcode.com/problems/same-tree/solution/
+class Solution:
+    def recursion(self, p, q):
+        if not p and not q:
+            return True
+        elif not p or not q:
+            return False
+        
+        if p.val==q.val:
+            if self.recursion(p.left, q.left) and self.recursion(p.right, q.right):
+                return True
+            else:
+                return False
+        else:
+            return False
+
+
+    def isSameTree(self, p, q) -> bool:
+        if not p and not q:
+            return True
+        elif not p or not q:
+            return False
+        stack1=[p]
+        stack2=[q]
+        while stack1 and stack2:
+            node1 = stack1.pop()
+            node2 = stack2.pop()
+            if node1.val==node2.val:
+                if node1.right and node2.right:
+                    stack1.append(node1.right)
+                    stack2.append(node2.right)
+                elif not node1.right and not node2.right:
+                    pass
+                else:
+                    return False
+                
+                if node1.left and node2.left:
+                    stack1.append(node1.left)
+                    stack2.append(node2.left)
+                elif not node1.left and not node2.left:
+                    pass
+                else:
+                    return False
+            else:
+                return False
+        return True
+
+# import sys
+# sys.path.append(".")
+# from utilities import to_string
+# flashcard=to_string.file_to_string(__file__)
+# print(flashcard)
+
+'''
+Approach 1: Recursion
+Intuition
+
+The simplest strategy here is to use recursion. Check if p and q nodes are not None, and their values are equal. If all checks are OK, do the same for the child nodes recursively.
+
+Implementation
+
+Current
+1 / 6
+
+Complexity Analysis
+
+Time complexity : O N since each node is visited exactly once.
+Space complexity : O log(n) in the best case of completely balanced tree and O(n) in the worst case of completely unbalanced tree, to keep a deque.
+
+
+Approach 2: Iteration
+Intuition
+
+Start from the root and then at each iteration pop the current node out of the deque. Then do the same checks as in the approach 1 :
+
+p and p are not None,
+
+p.val is equal to q.val,
+
+and if checks are OK, push the child nodes.
+
+Implementation
+
+
+Complexity Analysis
+
+Time complexity : O N since each node is visited exactly once.
+Space complexity : O log(n) in the best case of completely balanced tree and O(n) in the worst case of completely unbalanced tree, to keep a deque.
+'''

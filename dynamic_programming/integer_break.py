@@ -3,15 +3,15 @@ https://www.youtube.com/watch?v=0N_vjYKtx88
 https://leetcode.com/problems/integer-break/
 '''
 class IntegerBreak(object):
-    def answer(self, i):
+    def answer(self, n):
         #if 0, return 0
-        if i<=1:
+        if n<=1:
             return 0
-        elif i==2:
+        elif n==2:
             return 1
-        elif i==3:
+        elif n==3:
             return 2
-        return self.answer_helper(i, {})
+        return self.answer_helper(n, {})
 
     def answer_helper(self, i, hm):
         if i==0 or i==1:

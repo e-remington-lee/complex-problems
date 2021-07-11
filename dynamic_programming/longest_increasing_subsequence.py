@@ -75,7 +75,7 @@ class LongestIncreasingSubsequence(object):
         return len(sub)
 
     def binary_search(self, nums, left, right, target):
-        if right>left:
+        if right>=left:
             mid=(right+left)//2
             if target>nums[mid]:
                 return self.bs(nums, mid+1, right, target)
@@ -113,7 +113,7 @@ import sys
 sys.path.append(".")
 from utilities import to_string
 flashcard=to_string.file_to_string(__file__)
-# print(flashcard)
+print(flashcard)
 
 '''
 1. dynamic programming
