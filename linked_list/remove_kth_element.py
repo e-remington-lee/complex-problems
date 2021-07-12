@@ -12,17 +12,27 @@ class Node(object):
             current=current.next
         return "".join(li)
 
-
+'''
+good example of object referecing in linked lists
+slow.next = slow.next.next modifies slow, not head
+but if slow.next=head, then we make slow=slow.next, then we make slow.next=3, that will modify head 2 bc slow/head point to same object
+'''
 class RemoveKthElement(object):
-    def answer(self, node, target):
-        slow=fast=node
-        for _ in range(target):
+    def answer(self, head, n):
+        #slow=fast=head DOES NOT WORK
+        dummy=slow=fast=Node(0, head)
+        for _ in range(n):
             fast=fast.next
-        while fast.next:
+        while fast and fast.next:
             fast=fast.next
             slow=slow.next
         slow.next=slow.next.next
-        return node
+        '''
+        this is because if we were to return the head itself, slow.next=head, but when we make slow.next=slow.next.next, we aren't modifying the head
+        object, we are modifying the slow.next pointer.the slow.next pointer is what we want it to be, but head is NOT. we make the dummy object with
+        dummy.next=head, we also do dummy=slow=fast, then when slow.next = new value, dummy.next = new value we want
+        '''
+        return dummy.next
 
 n1 = Node(1, Node(2, Node(3, Node(4, Node(5)))))
 x=RemoveKthElement()

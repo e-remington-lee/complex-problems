@@ -119,18 +119,22 @@ class Node(object):
                 stack.append(node.left)
                 stack.append(node.right)
 
-    # can be improved slightly
     def max_depth(self, node):
-        return self.max_depth_helper(node, 0)
-      
-    # time, On, space worst cast On, amortized O(n/2) I think
-    def max_depth_helper(self, node, depth):
         if not node:
-            return depth
-        depth +=1
-        left = self.max_depth_helper(node.left, depth)
-        right = self.max_depth_helper(node.right, depth)
-        return max(left, right)
+            return 0
+        return 1+max(self.max_depth(node.left), self.max_depth(node.right))
+    # can be improved slightly
+    # def max_depth(self, node):
+    #     return self.max_depth_helper(node, 0)
+      
+    # # time, On, space worst cast On, amortized O(n/2) I think
+    # def max_depth_helper(self, node, depth):
+    #     if not node:
+    #         return depth
+    #     depth +=1
+    #     left = self.max_depth_helper(node.left, depth)
+    #     right = self.max_depth_helper(node.right, depth)
+    #     return max(left, right)
 
     def get_node_depth(self, node, value):
         return self.__depth_helper(node, value, 1)
@@ -230,10 +234,23 @@ class Node(object):
         return True
         
     def invert(self, node):
-        if node:
-            node.left, node.right = self.invert(node.right), self.invert(node.left)
-            return node
+        if not node:
+            return None
+        node.left, node.right = node.right, node.left
+        self.invert(node.right)
+        self.invert(node.left)
+        return node
 
+    def tree_height(self, node):
+        if not node:
+            return 0
+        return 1+max(self.tree_height(node.left), self.tree_height(node.right))
+
+    def exists_in_tree(self, node, value):
+        if not node:
+            return False
+        return node.value==value or self.exists_in_tree(node.left, value) or self.exists_in_tree(node.right, value)
+    
     def invert_iterative(self, node):
         stack = [node]
         while stack:
