@@ -2,6 +2,8 @@
 #     def __init__(self, value, next=None):
 #         self.value=value
 #         self.next=next
+import sys
+import os
 
 class Node(object):
     def __init__(self, value, right=None, left=None):
@@ -101,4 +103,3 @@ class NodesSumToZero(object):
 # from utilities import to_string
 # flashcard=to_string.file_to_string(__file__)
 # print(flashcard)
-

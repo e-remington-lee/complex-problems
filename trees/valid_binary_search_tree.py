@@ -21,14 +21,12 @@
 # nodes have to be less than 5 for the rest of the solution, so that has to be accounted for
 import sys
 
-print(-sys.maxsize-100)
 class Node:
     def __init__(self, value, left_node=None, right_node=None):
         self.value = value
         self.left_node = left_node
         self.right_node = right_node
         
-
 
 class Solution:
     def answer(self, node, _min=float("-inf"), _max=float("inf")):
@@ -47,3 +45,8 @@ print(sol.answer(node, _min=0, _max=100))
 # print(sol.answer(node))
 
 
+import sys
+sys.path.append(".")
+from utilities import to_string
+flashcard=to_string.file_to_string(__file__)
+print(flashcard)

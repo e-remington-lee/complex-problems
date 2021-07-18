@@ -162,7 +162,6 @@ t2="abcbcba"
 print(x.optimal(t1, t2))
 #Answer4/3 is probably good enough tbh
 print(x.answer4(t1, t2))
-
 print("1234".find("1", 2))
 '''
 Overview
