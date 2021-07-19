@@ -1,7 +1,7 @@
 class Fib:
     def recurrsive_fib1(self, n):
         if n <=1:
-            return 1
+            return n
         return self.recurrsive_fib1(n-1) + self.recurrsive_fib1(n-2)
 
     def fib(self, n):
@@ -10,9 +10,20 @@ class Fib:
         second=1
         for _ in range(n):
             first, second = second, first+second
-        return second
+        return first
 
+    def fib_memo(self, n):
+        def helper(n, m):
+            if n in m:
+                return m[n]
+            if n<=1:
+                return n
+            x=helper(n-1, m)+helper(n-2, m)
+            m[n]=x
+            return x
+        return helper(n, {})
     
 print(Fib().recurrsive_fib1(4))
 print(Fib().fib(4))
+print(Fib().fib_memo(4))
 
