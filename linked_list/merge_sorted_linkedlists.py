@@ -16,6 +16,7 @@ class MergeTwoLists(object):
                 current.next=l2
                 current=current.next
                 l2=l2.next
+        # to get this, you probably have to visualize it and write it out
         current.next = l1 if l1 else l2
         return head.next
 
