@@ -1,0 +1,12 @@
+All questions here have been asked before according to online
+https://leetcode.com/discuss/interview-question/algorithms/1017545/GOOGLE-or-OA-or-L3-backend
+
+https://leetcode.com/discuss/interview-question/345744
+
+https://leetcode.com/discuss/interview-question/algorithms/880536/Facebook-or-Phone-or-Interval-List-Intersections-and-Largest-BST-Subtree
+
+https://www.geeksforgeeks.org/minimum-removal-of-consecutive-similar-characters-required-to-empty-a-binary-string/
+
+https://leetcode.com/discuss/interview-question/algorithms/855021/Goldman-sachsor-new-grad-2021-sdeanalystor-1st-oa
+
+https://www.youtube.com/watch?v=0N_vjYKtx88

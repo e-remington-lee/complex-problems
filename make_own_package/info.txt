@@ -1,0 +1,6 @@
+https://stackoverflow.com/questions/1550226/python-setup-py-uninstall
+
+always use pip install . 
+never use python setup.py install, you have to undo everything manually if you want to uninstall install
+https://towardsdatascience.com/building-a-python-package-without-publishing-e2d36c4686cd
+

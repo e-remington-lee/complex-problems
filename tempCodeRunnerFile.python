@@ -1,0 +1,31 @@
+class HeapSort:
+    def sort(self, arr):
+        n = len(arr)
+
+        for i in range(n//2 - 1, -1, -1):
+            self.heapify(arr, i, n)
+
+        for i in range(n-1, -1, -1):
+            arr[0], arr[i] = arr[i], arr[0]
+            self.heapify(arr, 0, i)
+ 
+        return arr
+
+
+    def heapify(self, arr, i, n):
+        largest = i
+        left = i*2 + 1
+        right = i*2 +2
+
+        if left < n and arr[largest] < arr[left]:
+            largest = left
+        
+        if right < n and arr[largest] < arr[right]:
+            largest = right
+
+        if i is not largest:
+            arr[i], arr[largest] = arr[largest] , arr[i]
+            self.heapify(arr, largest, n)
+
+li = [2, 5, 3, 8, 1, 6]
+print(HeapSort().sort(li))
